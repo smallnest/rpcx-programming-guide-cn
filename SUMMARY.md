@@ -3,7 +3,7 @@
 * [Go RPC开发简介](README.md)
 * [官方RPC库](chapter1.md)
 * [gRPC介绍](/chapter3.md)
-* [其它Go RPC库](其它go-rpc库.md)
+* [其它Go RPC库](/chapter4.md)
 * [RPCX起步](rpcx起步.md)
 * [服务注册中心](服务注册中心.md)
 * [服务器端开发](服务器端开发.md)
