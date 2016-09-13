@@ -3,19 +3,12 @@
         "autocover"
     ],
      "pluginsConfig": { 
-
  "autocover": {
-
  "font": {
-
  "size": null,
-
  "family": "Impact",
-
  "color": "#FFF"
-
  },
-
  "size": {
 
  "w": 1800,
