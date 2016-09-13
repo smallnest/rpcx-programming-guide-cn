@@ -5,7 +5,7 @@
 * [gRPC介绍](/chapter2.md)
 * [其它Go RPC库](/chapter3.md)
 * [RPCX起步](/chapter4.md)
-* [服务注册中心](服务注册中心.md)
+* [服务注册中心](/chapter5.md)
 * [服务器端开发](服务器端开发.md)
 * [客户端开发](客户端开发.md)
 * [序列化框架](序列化框架.md)
