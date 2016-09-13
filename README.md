@@ -1,3 +1,3 @@
 # Go RPC 开发指南
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+本书首先介绍了使用Go官方库开发RPC服务的方法，然后介绍流行gRPC库以及其它一些RPC框架如
