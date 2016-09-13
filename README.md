@@ -20,7 +20,7 @@
 为了允许不同的客户端均能访问服务器，许多标准化的 RPC 系统应运而生了。其中大部分采用接口描述语言（Interface Description Language，IDL），方便跨平台的远程过程调用。
 
 
-
+![](https://i-technet.sec.s-msft.com/dynimg/IC196578.gif)
 
 ## 国内外知名的RPC框架
 
