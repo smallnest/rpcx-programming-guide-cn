@@ -122,6 +122,174 @@ replyCall := <-divCall.Done	// will be equal to divCall
 // check errors, print, etc.
 ```
 
+## 服务器代码分析
+首先， ｀net/rpc｀定义了一个缺省的Server,所以Server的很多方法你可以直接调用，这对于一个简单的Server的实现更方便，但是你如果需要配置不同的Server，
+比如不同的监听地址或端口，就需要自己生成Server:
+``` go 
+var DefaultServer = NewServer()
+```
+
+Server有多种Socket监听的方式:
+```go 
+    func (server *Server) Accept(lis net.Listener)
+    func (server *Server) HandleHTTP(rpcPath, debugPath string)
+    func (server *Server) ServeCodec(codec ServerCodec)
+    func (server *Server) ServeConn(conn io.ReadWriteCloser)
+    func (server *Server) ServeHTTP(w http.ResponseWriter, req *http.Request)
+    func (server *Server) ServeRequest(codec ServerCodec) error
+```
+
+其中, `ServeHTTP` 实现了处理 http请求的业务逻辑， 它首先处理http的 `CONNECT`请求， 接收后就Hijacker这个连接conn， 然后调用`ServeConn`在这个连接上　处理这个客户端的请求。
+它其实是实现了 `http.Handler`接口，我们一般不直接调用这个方法。
+｀Server.HandleHTTP｀设置rpc的上下文路径，｀rpc.HandleHTTP｀使用默认的上下文路径｀DefaultRPCPath｀、 `DefaultDebugPath`。
+这样，当你启动一个http server的时候 ｀http.ListenAndServe｀，上面设置的上下文将用作RPC传输，这个上下文的请求会教给`ServeHTTP`来处理。
+
+以上是RPC over http的实现，可以看出 `net/rpc`只是利用 http CONNECT建立连接，这和普通的 RESTful api还是不一样的。
+
+｀Accept｀用来处理一个监听器，一直在监听客户端的连接，一旦监听器接收了一个连接，则还是交给`ServeConn`在另外一个goroutine中去处理：
+```go 
+func (server *Server) Accept(lis net.Listener) {
+	for {
+		conn, err := lis.Accept()
+		if err != nil {
+			log.Print("rpc.Serve: accept:", err.Error())
+			return
+		}
+		go server.ServeConn(conn)
+	}
+}
+```
+
+可以看出，很重要的一个方法就是`ServeConn`:
+```go 
+func (server *Server) ServeConn(conn io.ReadWriteCloser) {
+	buf := bufio.NewWriter(conn)
+	srv := &gobServerCodec{
+		rwc:    conn,
+		dec:    gob.NewDecoder(conn),
+		enc:    gob.NewEncoder(buf),
+		encBuf: buf,
+	}
+	server.ServeCodec(srv)
+}
+```
+
+连接其实是交给一个`ServerCodec`去处理，这里默认使用`gobServerCodec`去处理，这是一个未输出默认的编解码器，你可以使用其它的编解码器，我们下面再介绍，
+这里我们可以看看`ServeCodec`是怎么实现的：
+```go 
+func (server *Server) ServeCodec(codec ServerCodec) {
+	sending := new(sync.Mutex)
+	for {
+		service, mtype, req, argv, replyv, keepReading, err := server.readRequest(codec)
+		if err != nil {
+			if debugLog && err != io.EOF {
+				log.Println("rpc:", err)
+			}
+			if !keepReading {
+				break
+			}
+			// send a response if we actually managed to read a header.
+			if req != nil {
+				server.sendResponse(sending, req, invalidRequest, codec, err.Error())
+				server.freeRequest(req)
+			}
+			continue
+		}
+		go service.call(server, sending, mtype, req, argv, replyv, codec)
+	}
+	codec.Close()
+}
+```
+
+它其实一直从连接中读取请求，然后调用`go service.call`在另外的goroutine中处理服务调用。
+
+我们从中可以学到：
+1. 对象重用。 Request和Response都是可重用的，通过Lock处理竞争。这在大并发的情况下很有效。 有兴趣的读者可以参考[fasthttp](https://github.com/valyala/fasthttp)的实现。
+2. 使用了大量的goroutine。 和Java中的线程不同，你可以创建非常多的goroutine, 并发处理非常好。 如果使用一定数量的goutine作为worker池去处理这个case，可能还会有些性能的提升，但是更复杂了。使用goroutine已经获得了非常好的性能。
+3. 业务处理是异步的, 服务的执行不会阻塞其它消息的读取。
+
+注意一个codec实例必然和一个connnection相关，因为它需要从connection中读取request和发送response。
+
+go的rpc官方库的消息(request和response)的定义很简单， 就是消息头(header)+内容体(body)。
+
+请求的消息头的定义如下，包括服务的名称和序列号：
+```go
+type Request struct {
+        ServiceMethod string // format: "Service.Method"
+        Seq           uint64 // sequence number chosen by client
+        // contains filtered or unexported fields
+}
+```
+消息体就是传入的参数。
+
+返回的消息头的定义如下：
+```go 
+type Response struct {
+        ServiceMethod string // echoes that of the Request
+        Seq           uint64 // echoes that of the request
+        Error         string // error, if any.
+        // contains filtered or unexported fields
+}
+```
+
+消息体是reply类型的序列化后的值。
+
+
+Server还提供了两个注册服务的方法:
+```go 
+    func (server *Server) Register(rcvr interface{}) error
+    func (server *Server) RegisterName(name string, rcvr interface{}) error
+```
+
+第二个方法为服务起一个别名，否则服务名已它的类型命名,它们俩底层调用`register`进行服务的注册。
+```go
+func (server *Server) register(rcvr interface{}, name string, useName bool) error
+```
+
+受限于Go语言的特点， 我们不可能在接到客户端的请求的时候，根据反射动态的创建一个对象，就是Java那样， 
+因此在Go语言中，我们需要预先创建一个服务map这是在编译的时候完成的:
+```go 
+server.serviceMap = make(map[string]*service)
+```
+
+同时每个服务还有一个方法map: map[string]*methodType,通过suitableMethods建立:
+
+```go 
+func suitableMethods(typ reflect.Type, reportErr bool) map[string]*methodType
+```
+
+这样rpc在读取请求header，通过查找这两个map，就可以得到要调用的服务及它的对应方法了。
+
+方法的调用:
+```
+func (s *service) call(server *Server, sending *sync.Mutex, mtype *methodType, req *Request, argv, replyv reflect.Value, codec ServerCodec) {
+	mtype.Lock()
+	mtype.numCalls++
+	mtype.Unlock()
+	function := mtype.method.Func
+	// Invoke the method, providing a new value for the reply.
+	returnValues := function.Call([]reflect.Value{s.rcvr, argv, replyv})
+	// The return value for the method is an error.
+	errInter := returnValues[0].Interface()
+	errmsg := ""
+	if errInter != nil {
+		errmsg = errInter.(error).Error()
+	}
+	server.sendResponse(sending, req, replyv.Interface(), codec, errmsg)
+	server.freeRequest(req)
+}
+```
+
+
+
+
+
+## 客户端代码分析
+客户端要建立和服务器的连接，可以
+
+
+## codec／序列化框架
+
 
 
 ## 参考文档
