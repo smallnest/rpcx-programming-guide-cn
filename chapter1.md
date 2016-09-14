@@ -1,6 +1,6 @@
 # 官方RPC库
 
-Go官方提供了一个［RPC库］(https://golang.org/pkg/net/rpc/): `net/rpc`。
+Go官方提供了一个[RPC库](https://golang.org/pkg/net/rpc/): `net/rpc`。
 
 包rpc提供了通过网络访问一个对象的方法的能力。
 服务器需要注册对象， 通过对象的类型名暴露这个服务。注册后这个对象的输出方法就可以远程调用，这个库封装了底层传输的细节，包括序列化。
