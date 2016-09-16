@@ -46,7 +46,7 @@ func (s *Server) Address() string
 func (s *Server) Close() error
 ```
 
-
+`Auth`提供一个身份验证的方法。
 ```go
 func (s *Server) Auth(fn AuthorizationFunc) error
 ```
