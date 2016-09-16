@@ -60,7 +60,8 @@ func main() {
 
  fn := func(p *rpcx.AuthorizationAndServiceMethod) error {
   if p.Authorization != "0b79bab50daca910b000d4f1a2b675d604257e42" || p.Tag != "Bearer" {
-   fmt.Printf("error: wrong Authorization: %s, %s\n", p.Authorization, p.Tag) return errors.New("Authorization failed ") }
+   fmt.Printf("error: wrong Authorization: %s, %s\n", p.Authorization, p.Tag)
+   return errors.New("Authorization failed ") }
 
  fmt.Printf("Authorization success: %+v\n", p) return nil }
 
