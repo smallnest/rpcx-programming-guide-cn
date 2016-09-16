@@ -104,7 +104,10 @@ func main() {
 rpcx创建了一个缺省的`Server`，并提供了一些辅助方法来暴露Server的方法，因此你也可以直接调用`rpcx.XXX`方法来调用缺省的Server的方法。
 
 
+`Server`是一个struct类型，它还包含一些有用的字段：
+```go 
 
+```
 
 
 
