@@ -173,7 +173,10 @@ func main() {
 
  s := clientselector.NewMultiClientSelector(servers, rpcx.RandomSelect, 10*time.Second)
 
- for i := 0; i < 10; i++ { callServer(s) }}
+ for i := 0; i < 10; i++ {
+   callServer(s) 
+ }
+}
 
 func callServer(s rpcx.ClientSelector) { client := rpcx.NewClient(s)
 
