@@ -12,5 +12,23 @@
 
 那么，如何实现服务\(微服务\)之间的调用的？一般来说最常用的是两种方式: RESTful API和RPC。本书的第一章就介绍了这两种方式的特点和优缺点，那么本书重点介绍的是RPC的方式。
 
-RPCX就是为Go生态圈提供的一个全功能的RPC框架。
+RPCX就是为Go生态圈提供的一个全功能的RPC框架,它参考了国内电商圈流行的RPC框架Dubbo的功能特性，实现了一个高性能的、可容错的，插件式的RPC框架。
+
+
+
+它的特点包括：
+
+* 开发简单，基本类似官方的RPC库开发
+* 
+* Plugable. Features are implemented by Plugins such as service discovery.
+* Commnuicates with TCP long connections.
+* support many codec. for example, Gob、Json、MessagePack、gencode、ProtoBuf.
+* Service dicovery. support ZooKeeper、Etcd.
+* Fault tolerance：Failover、Failfast、Failtry.
+* Load banlancer：support randomSelecter, RoundRobin, consistent hash etc.
+* scalable.
+* Other: metrics、log.
+* Authorization.
+
+
 
