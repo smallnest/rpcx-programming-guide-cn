@@ -14,14 +14,11 @@
 
 RPCX就是为Go生态圈提供的一个全功能的RPC框架,它参考了国内电商圈流行的RPC框架Dubbo的功能特性，实现了一个高性能的、可容错的，插件式的RPC框架。
 
-
-
 它的特点包括：
 
 * 开发简单，基本类似官方的RPC库开发
-* 
-* Plugable. Features are implemented by Plugins such as service discovery.
-* Commnuicates with TCP long connections.
+* 插件式设计，很容易扩展开发
+* 可以基于TCP或者HTTP进行通讯，pipelining设计，性能更好
 * support many codec. for example, Gob、Json、MessagePack、gencode、ProtoBuf.
 * Service dicovery. support ZooKeeper、Etcd.
 * Fault tolerance：Failover、Failfast、Failtry.
@@ -29,6 +26,4 @@ RPCX就是为Go生态圈提供的一个全功能的RPC框架,它参考了国内�
 * scalable.
 * Other: metrics、log.
 * Authorization.
-
-
 
