@@ -24,6 +24,6 @@ RPCX就是为Go生态圈提供的一个全功能的RPC框架,它参考了国内�
 * 支持服务发现，支持多种注册中心，如ZooKeeper、Etcd 和 Consul
 * 容错，支持Failover、Failfast、Failtry、Broadcast
 * 多种路由和负载均衡方式：Random,RoundRobin, WeightedRoundRobin, consistent hash等
-* Other: metrics、log.
-* Authorization.
+* 支持授权验证方式
+* 其它功能，比如限流、日志、监控\(metrics\)等
 
