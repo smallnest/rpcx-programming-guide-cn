@@ -14,4 +14,5 @@
 * [客户端路由选择](chapter11.md)
 * [web管理界面](chapter12.md)
 * [性能比较](chapter13.md)
+* 插件开发
 
