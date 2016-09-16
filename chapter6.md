@@ -22,4 +22,8 @@ ln, _ := net.Listen("tcp", "127.0.0.1:0")
 go s.ServeByHTTP(ln, "foo")
 ```
 
+```go
+server.Start("tcp", "127.0.0.1:0")
+```
+
 
