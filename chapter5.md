@@ -41,4 +41,10 @@ func main() {
  server.Serve("tcp", *addr)}
 ```
  
-首先，我们必须创建一个`ZooKeeperRegisterPlugin`插件，用来设置zookeeper和服务的基本信息。
+首先，我们必须创建一个`ZooKeeperRegisterPlugin`插件，用来设置zookeeper和服务的基本信息，这里我们还定义了更新metrics的功能，然后启动这个插件。
+
+这个插件开始连接zookeeper，并且检查响应的节点是否存在，如果不存在的话会自动创建这个节点。
+
+这个插件还定义了这个服务要暴露的监听地址和端口。
+
+这里我们使用的协议是`tcp`,你也可以换用`http`。
