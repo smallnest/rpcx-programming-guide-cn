@@ -93,8 +93,10 @@ rpcx.Serve("tcp", "127.0.0.1:8972")
 type Args struct { A int `msg:"a"` B int `msg:"b"`}
 
 type Reply struct { C int `msg:"c"`}
-
 ```
+
+
+
 
 ## 多服务调用
 
