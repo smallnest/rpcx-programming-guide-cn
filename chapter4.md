@@ -63,7 +63,7 @@ func main() {
     server.Serve("tcp", "127.0.0.1:8972")
 }
 ```
-
+和官方库rpc以及http一样， rpcx提供了一个缺省的Server,
 
 ## 多服务调用
 
