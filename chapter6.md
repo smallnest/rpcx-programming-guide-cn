@@ -16,5 +16,9 @@ func (s *Server) StartTLS(network, address string, config *tls.Config)
 
 `ServeXXX`方法的方法会阻塞当前的goroutine，如果不想阻塞当前的goroutine，可以调用`StartXXX`方法。
 
+一些例子：
+```go
+ln, _ := net.Listen("tcp", "127.0.0.1:0")go s.ServeByHTTP(ln, "foo")
+```
 
 
