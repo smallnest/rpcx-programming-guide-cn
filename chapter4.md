@@ -45,8 +45,15 @@ type Reply struct { C int `msg:"c"`}
 
 type Arith int
 
-func (t *Arith) Mul(args *Args, reply *Reply) error { reply.C = args.A * args.B return nil}
+func (t *Arith) Mul(args *Args, reply *Reply) error { 
+    reply.C = args.A * args.B return nil
+}
 ```
+
+`Args`作为传入的参数，它的两个字段`A`、`B`代表两个乘数。
+`Reply`的`C`代表返回的结果。
+`Mul`就是业务方法，
+
 
 然后注册这个服务启动就可以了：
 ```go 
