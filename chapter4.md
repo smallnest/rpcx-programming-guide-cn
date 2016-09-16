@@ -97,9 +97,15 @@ type Reply struct { C int `msg:"c"`}
 
 同步调用的代码如下：
 ```go
-args := &Args{7, 8} var reply Reply err := client.Call("Arith.Mul", args, &reply) if err != nil { fmt.Printf("error for Arith: %d*%d, %v \n", args.A, args.B, err) } else { fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C) }
+args := &Args{7, 8} 
+var reply Reply 
+err := client.Call("Arith.Mul", args, &reply) 
+if err != nil {
+ fmt.Printf("error for Arith: %d*%d, %v \n", args.A, args.B, err) } else {
+ fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C)
+}
 
- client.Close()
+client.Close()
 ```
 
 
