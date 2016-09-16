@@ -179,7 +179,5 @@ func callServer(s rpcx.ClientSelector) { client := rpcx.NewClient(s)
 
  client.Close()}
 
-```
-
 
 ```
