@@ -77,7 +77,8 @@ client := rpcx.NewClient(s)
   }
  }
 
- client.Close()}
+ client.Close()
+}
 ```
 
 客户端的变化不大，只是将直连的ClientSelector换成了ZooKeeperClientSelector。
