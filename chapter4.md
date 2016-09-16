@@ -165,7 +165,9 @@ type Args struct { A int `msg:"a"` B int `msg:"b"`}
 
 type Reply struct { C int `msg:"c"`}
 
-func main() { server1 := &clientselector.ServerPeer{Network: "tcp", Address: "127.0.0.1:8972"} server2 := &clientselector.ServerPeer{Network: "tcp", Address: "127.0.0.1:8973"}
+func main() {
+ server1 := &clientselector.ServerPeer{Network: "tcp", Address: "127.0.0.1:8972"}
+ server2 := &clientselector.ServerPeer{Network: "tcp", Address: "127.0.0.1:8973"}
 
  servers := []*clientselector.ServerPeer{server1, server2}
 
