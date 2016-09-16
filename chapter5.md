@@ -120,7 +120,8 @@ func main() {
 var e = flag.String("e", "http://127.0.0.1:2379", "etcd URL")
 var n = flag.String("n", "Arith", "Service Name")
 
-func main() { flag.Parse()
+func main() {
+ flag.Parse()
 
  //basePath = "/rpcx/" + serviceName s := clientselector.NewEtcdClientSelector([]string{*e}, "/rpcx/"+*n, time.Minute, rpcx.RandomSelect, time.Minute) client := rpcx.NewClient(s)
 
