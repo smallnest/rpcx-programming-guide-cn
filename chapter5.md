@@ -1,4 +1,5 @@
 # 服务注册中心
 服务注册中心用来实现服务发现和服务的元数据存储。
 
-当前rpcx支持ZooKeeper、Etcd 和 Consul三种注册中心， 其中consul注册中心是实验性的，可能一些特性比如平滑的权重选择、
+当前rpcx支持ZooKeeper、Etcd 和 Consul三种注册中心， 其中consul注册中心是实验性的，可能一些特性比如web管理程序不支持。
+
