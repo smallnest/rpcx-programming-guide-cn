@@ -189,7 +189,8 @@ func callServer(s rpcx.ClientSelector) {
    fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C)
  }
 
- client.Close()}
+ client.Close()
+}
 
 
 ```
