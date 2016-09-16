@@ -46,7 +46,8 @@ func (s *Server) Address() string
 func (s *Server) Close() error
 ```
 
-`Auth`提供一个身份验证的方法。
+`Auth`提供一个身份验证的方法，它在你需要实现服务权限设置的时候很有用。
+
 ```go
 func (s *Server) Auth(fn AuthorizationFunc) error
 ```
