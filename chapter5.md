@@ -106,7 +106,10 @@ func main() {
   UpdateInterval: time.Minute,
  }
  rplugin.Start()
- server.PluginContainer.Add(rplugin) server.PluginContainer.Add(plugin.NewMetricsPlugin()) server.RegisterName(*n, new(Arith), "weight=1&m=devops") server.Serve("tcp", *addr)}
+ server.PluginContainer.Add(rplugin)   
+ server.PluginContainer.Add(plugin.NewMetricsPlugin())  
+ server.RegisterName(*n, new(Arith), "weight=1&m=devops") 
+ server.Serve("tcp", *addr)}
 ```
 
 
