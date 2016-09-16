@@ -116,6 +116,19 @@ func main() {
 这个插件同样是必须在注册服务之前加入到插件容器中。
 
 ### 客户端
+```go 
+var e = flag.String("e", "http://127.0.0.1:2379", "etcd URL")var n = flag.String("n", "Arith", "Service Name")
+
+func main() { flag.Parse()
+
+ //basePath = "/rpcx/" + serviceName s := clientselector.NewEtcdClientSelector([]string{*e}, "/rpcx/"+*n, time.Minute, rpcx.RandomSelect, time.Minute) client := rpcx.NewClient(s)
+
+ args := &Args{7, 8} var reply Reply
+
+ for i := 0; i < 1000; i++ { err := client.Call(*n+".Mul", args, &reply) if err != nil { fmt.Printf("error for "+*n+": %d*%d, %v \n", args.A, args.B, err) } else { fmt.Printf(*n+": %d*%d=%d \n", args.A, args.B, reply.C) } }
+
+ client.Close()}
+```
 
 
 
