@@ -41,3 +41,4 @@ func main() {
  server.Serve("tcp", *addr)}
 ```
  
+首先，我们必须创建一个`ZooKeeperRegisterPlugin`插件，用来设置zookeeper和服务的基本信息。
