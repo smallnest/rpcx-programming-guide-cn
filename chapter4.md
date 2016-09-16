@@ -216,4 +216,16 @@ func callServer(s rpcx.ClientSelector) {
 ```
 
 
-
+输出结果,可以看到:
+```sh
+Arith: 7*8=560
+Arith: 7*8=560
+Arith: 7*8=560
+Arith: 7*8=560
+Arith: 7*8=56
+Arith: 7*8=56
+Arith: 7*8=56
+Arith: 7*8=56
+Arith: 7*8=56
+Arith: 7*8=56
+```
