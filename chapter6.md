@@ -31,9 +31,16 @@ server.Start("tcp", "127.0.0.1:0")
 func (s *Server) RegisterName(name string, service interface{}, metadata ...string) 
 ```
 
+另外Server还提供其它几个方法。`NewServer`用来创建一个新的Server对象。
 ```go
 func NewServer() *Server
+```
+
+`Address`返回Server监听的地址。如果你设置的时候设置端口为0,则Go会选择一个合适的端口号作为监听的端口号，通过这个方法可以返回实际的监听地址和端口。
+```go
 func (s *Server) Address() string
+```
+
 func (s *Server) Auth(fn AuthorizationFunc) error
 func (s *Server) Close() error
 ```
