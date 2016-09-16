@@ -26,7 +26,7 @@ go s.ServeByHTTP(ln, "foo")
 server.Start("tcp", "127.0.0.1:0")
 ```
 
-
+`RegisterName`
 ```go
 func (s *Server) RegisterName(name string, service interface{}, metadata ...string) 
 ```
