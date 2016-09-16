@@ -111,6 +111,12 @@ func main() {
  server.RegisterName(*n, new(Arith), "weight=1&m=devops") 
  server.Serve("tcp", *addr)}
 ```
+和ZooKeeper注册中心类似，Etcd注册中心使用`EtcdRegisterPlugin`来设置etcd和服务的基本信息。
+
+这个插件同样是必须在注册服务之前加入到插件容器中。
+
+### 客户端
+
 
 
 
