@@ -37,6 +37,7 @@ func main() {
  }
  rplugin.Start()
  server.PluginContainer.Add(rplugin)
- server.RegisterName(*n, new(Arith), "weight=5&state=active") server.Serve("tcp", *addr)}
+ server.RegisterName(*n, new(Arith), "weight=5&state=active")
+ server.Serve("tcp", *addr)}
 ```
  
