@@ -109,7 +109,8 @@ rpcx创建了一个缺省的`Server`，并提供了一些辅助方法来暴露Se
 type Server struct {
  ServerCodecFunc ServerCodecFunc //PluginContainer must be configured before starting and Register plugins must be configured before invoking RegisterName method
  PluginContainer IServerPluginContainer
- //Metadata describes extra info about this service, for example, weight, active status Metadata string Timeout time.Duration ReadTimeout time.Duration WriteTimeout time.Duration // contains filtered or unexported fields }
+ //Metadata describes extra info about this service, for example, weight, active status Metadata string
+ Timeout time.Duration ReadTimeout time.Duration WriteTimeout time.Duration // contains filtered or unexported fields }
 
 ```
 
