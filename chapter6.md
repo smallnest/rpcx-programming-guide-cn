@@ -115,8 +115,9 @@ type Server struct {
  WriteTimeout time.Duration
  // contains filtered or unexported fields
  }
-
 ```
+
+`ServerCodecFunc`
 
 
 
