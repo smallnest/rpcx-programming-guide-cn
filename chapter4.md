@@ -48,7 +48,10 @@ type Arith int
 func (t *Arith) Mul(args *Args, reply *Reply) error { reply.C = args.A * args.B return nil}
 ```
 
-
+然后注册这个服务启动就可以了：
+```go 
+func main() { server := rpcx.NewServer() server.RegisterName("Arith", new(Arith)) server.Serve("tcp", "127.0.0.1:8972")}
+```
 
 
 ## 多服务调用
