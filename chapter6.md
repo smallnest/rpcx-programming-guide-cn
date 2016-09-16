@@ -26,7 +26,7 @@ go s.ServeByHTTP(ln, "foo")
 server.Start("tcp", "127.0.0.1:0")
 ```
 
-`RegisterName`
+`RegisterName`用来注册服务，可以指定服务名和它的元数据。
 ```go
 func (s *Server) RegisterName(name string, service interface{}, metadata ...string) 
 ```
