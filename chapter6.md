@@ -14,5 +14,7 @@ func (s *Server) Start(network, address string)
 func (s *Server) StartTLS(network, address string, config *tls.Config)
 ```
 
-`ServeXXX`方法的方法会阻塞当前的goroutine，如果不想阻塞当前的goroutine，
+`ServeXXX`方法的方法会阻塞当前的goroutine，如果不想阻塞当前的goroutine，可以调用`StartXXX`方法。
+
+
 
