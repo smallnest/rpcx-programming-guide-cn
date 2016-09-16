@@ -13,3 +13,5 @@ func (s *Server) ServeTLS(network, address string, config *tls.Config)
 func (s *Server) Start(network, address string)
 func (s *Server) StartTLS(network, address string, config *tls.Config)
 ```
+
+`ServeXXX`方法可以以HTTP或者TCP提供服务，还可以提供TLS的设置。
