@@ -23,7 +23,7 @@ RPCX就是为Go生态圈提供的一个全功能的RPC框架,它参考了国内�
 * 支持JSON-RPC和JSON-RPC2，实现跨语言调用
 * 支持服务发现，支持多种注册中心，如ZooKeeper、Etcd 和 Consul
 * 容错，支持Failover、Failfast、Failtry、Broadcast
-* 多种路由和负载均衡方式：Random,RoundRobin, WeightedRoundRobin, consistent hash etc.
+* 多种路由和负载均衡方式：Random,RoundRobin, WeightedRoundRobin, consistent hash等
 * scalable.
 * Other: metrics、log.
 * Authorization.
