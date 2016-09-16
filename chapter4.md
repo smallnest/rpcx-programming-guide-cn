@@ -143,4 +143,8 @@ func (t *Arith2) Error(args *Args, reply *Reply) error { panic("ERROR")}
 
 `Arith2`的Mul方法中我们将计算结果放大了10倍，所以如果传入两个参数7和8,它返回的结果是560,而`Arith`返回56。
 
+### 服务器端的代码
+在服务器端我们启动两个服务器，每个服务器都注册了相同名称的一个服务`Arith`:
+```go 
 
+```
