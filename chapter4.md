@@ -148,7 +148,7 @@ func (t *Arith2) Error(args *Args, reply *Reply) error { panic("ERROR")}
 ```go 
 func main() { 
     server1 := rpcx.NewServer() 
-    server1.RegisterName("Arith",    new(Arith)) 
+    server1.RegisterName("Arith", new(Arith)) 
     server1.Start("tcp", "127.0.0.1:8972")
 
     server2 := rpcx.NewServer() 
