@@ -18,7 +18,8 @@ func (s *Server) StartTLS(network, address string, config *tls.Config)
 
 一些例子：
 ```go
-ln, _ := net.Listen("tcp", "127.0.0.1:0")go s.ServeByHTTP(ln, "foo")
+ln, _ := net.Listen("tcp", "127.0.0.1:0")
+go s.ServeByHTTP(ln, "foo")
 ```
 
 
