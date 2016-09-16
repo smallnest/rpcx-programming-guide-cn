@@ -146,7 +146,8 @@ func (t *Arith2) Error(args *Args, reply *Reply) error { panic("ERROR")}
 ### 服务器端的代码
 在服务器端我们启动两个服务器，每个服务器都注册了相同名称的一个服务`Arith`,它们分别监听本地的8972和8973端口:
 ```go 
-func main() { server1 := rpcx.NewServer() server1.RegisterName("Arith", new(Arith)) server1.Start("tcp", "127.0.0.1:8972")
+func main() { server1 := rpcx.NewServer() server1.RegisterName("Arith", new(Arith)) 
+server1.Start("tcp", "127.0.0.1:8972")
 
  server2 := rpcx.NewServer() server2.RegisterName("Arith", new(Arith2)) server2.Serve("tcp", "127.0.0.1:8973")}
 ```
