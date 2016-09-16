@@ -129,7 +129,8 @@ func main() {
  replyCall := <-divCall.Done // will be equal to divCall
  if replyCall.Error != nil {
      fmt.Printf("error for Arith: %d*%d, %v \n", args.A, args.B, replyCall.Error)
- } else { fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C) }
+ } else {
+     fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C) }
 
  client.Close()}
 
