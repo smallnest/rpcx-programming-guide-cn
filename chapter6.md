@@ -110,7 +110,8 @@ type Server struct {
  ServerCodecFunc ServerCodecFunc //PluginContainer must be configured before starting and Register plugins must be configured before invoking RegisterName method
  PluginContainer IServerPluginContainer
  //Metadata describes extra info about this service, for example, weight, active status Metadata string
- Timeout time.Duration ReadTimeout time.Duration WriteTimeout time.Duration // contains filtered or unexported fields }
+ Timeout time.Duration
+ ReadTimeout time.Duration WriteTimeout time.Duration // contains filtered or unexported fields }
 
 ```
 
