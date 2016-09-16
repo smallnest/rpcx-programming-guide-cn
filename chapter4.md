@@ -141,3 +141,6 @@ func (t *Arith2) Mul(args *Args, reply *Reply) error { reply.C = args.A * args.B
 func (t *Arith2) Error(args *Args, reply *Reply) error { panic("ERROR")}
 ```
 
+`Arith2`的Mul方法中我们将计算结果放大了10倍，所以如果传入两个参数7和8,它返回的结果是560,而`Arith`返回56。
+
+
