@@ -89,7 +89,9 @@ zookeeper是Java生态圈常用的一个服务发现的软件，而Go生态圈�
 
 ### 服务器
 ```go
-var addr = flag.String("s", "127.0.0.1:8972", "service address")var e = flag.String("e", "http://127.0.0.1:2379", "etcd URL")var n = flag.String("n", "Arith", "Service Name")
+var addr = flag.String("s", "127.0.0.1:8972", "service address")
+var e = flag.String("e", "http://127.0.0.1:2379", "etcd URL")
+var n = flag.String("n", "Arith", "Service Name")
 
 func main() { flag.Parse()
 
