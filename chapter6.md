@@ -47,10 +47,13 @@ func (s *Server) Close() error
 ```
 
 `Auth`提供一个身份验证的方法，它在你需要实现服务权限设置的时候很有用。
+客户端会将一个身份验证的token传给服务器，但是rpcx并不限制你采用何种验证方式，普通的用户名+密码的明文也可以，OAuth2也可以，只要客户端和服务器端协商好一致的验证方式即可。
 
 ```go
 func (s *Server) Auth(fn AuthorizationFunc) error
 ```
+
+
 
 
 
