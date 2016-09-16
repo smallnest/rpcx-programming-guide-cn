@@ -152,7 +152,7 @@ func main() {
     server1.Start("tcp", "127.0.0.1:8972")
 
     server2 := rpcx.NewServer() 
-    server2.RegisterName("Arith", new(Arith2))         server2.Serve("tcp", "127.0.0.1:8973")
+    server2.RegisterName("Arith", new(Arith2))                server2.Serve("tcp", "127.0.0.1:8973")
 }
 ```
 
