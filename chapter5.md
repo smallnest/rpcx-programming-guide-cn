@@ -85,7 +85,13 @@ client := rpcx.NewClient(s)
 
 
 ## Etcd
+zookeeper是Java生态圈常用的一个服务发现的软件，而Go生态圈更常用的是etcd。
 
+### 服务器
+```go
+
+
+```
 
 
 
