@@ -64,7 +64,9 @@ func main() {
    return errors.New("Authorization failed ")
   }
 
- fmt.Printf("Authorization success: %+v\n", p) return nil }
+  fmt.Printf("Authorization success: %+v\n", p)
+  return nil
+ }
 
  server.Auth(fn)
 
