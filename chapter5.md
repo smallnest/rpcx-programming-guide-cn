@@ -103,7 +103,8 @@ func main() {
   BasePath: "/rpcx",
   Metrics: metrics.NewRegistry(),
   Services: make([]string, 1),
-  UpdateInterval: time.Minute, } rplugin.Start() server.PluginContainer.Add(rplugin) server.PluginContainer.Add(plugin.NewMetricsPlugin()) server.RegisterName(*n, new(Arith), "weight=1&m=devops") server.Serve("tcp", *addr)}
+  UpdateInterval: time.Minute,
+ } rplugin.Start() server.PluginContainer.Add(rplugin) server.PluginContainer.Add(plugin.NewMetricsPlugin()) server.RegisterName(*n, new(Arith), "weight=1&m=devops") server.Serve("tcp", *addr)}
 ```
 
 
