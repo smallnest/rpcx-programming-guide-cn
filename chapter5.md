@@ -18,5 +18,11 @@ rpcx会自动将服务的信息比如服务名，监听地址，监听协议，�
 
 ## ZooKeeper注册中心
 ### 服务端
+```go
+var addr = flag.String("s", "127.0.0.1:8972", "service address")var zk = flag.String("zk", "127.0.0.1:2181", "zookeeper URL")var n = flag.String("n", "127.0.0.1:2181", "Arith")
 
+func main() { flag.Parse()
+
+ server := rpcx.NewServer() rplugin := &plugin.ZooKeeperRegisterPlugin{ ServiceAddress: "tcp@" + *addr, ZooKeeperServers: []string{*zk}, BasePath: "/rpcx", Metrics: metrics.NewRegistry(), Services: make([]string, 1), UpdateInterval: 10 * time.Second, } rplugin.Start() server.PluginContainer.Add(rplugin) server.RegisterName(*n, new(Arith), "weight=5&state=active") server.Serve("tcp", *addr)}
+```
  
