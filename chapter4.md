@@ -178,9 +178,14 @@ func main() {
  }
 }
 
-func callServer(s rpcx.ClientSelector) { client := rpcx.NewClient(s)
+func callServer(s rpcx.ClientSelector) {
+ client := rpcx.NewClient(s)
 
- args := &Args{7, 8} var reply Reply err := client.Call("Arith.Mul", args, &reply) if err != nil { fmt.Printf("error for Arith: %d*%d, %v \n", args.A, args.B, err) } else { fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C) }
+ args := &Args{7, 8}
+ var reply Reply err := client.Call("Arith.Mul", args, &reply)
+ if err != nil {
+   fmt.Printf("error for Arith: %d*%d, %v \n", args.A, args.B, err)
+ } else { fmt.Printf("Arith: %d*%d=%d \n", args.A, args.B, reply.C) }
 
  client.Close()}
 
