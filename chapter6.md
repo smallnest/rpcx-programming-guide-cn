@@ -74,7 +74,10 @@ func main() {
 ```
 这个简单的例子演示了只有用户使用"Bear 0b79bab50daca910b000d4f1a2b675d604257e42" acces_token 访问时才提供服务，否则报错。
 
+我们可以看一下客户端如何设置这个access_token:
+```go 
 
+```
 
 
 
