@@ -27,3 +27,16 @@ server.Start("tcp", "127.0.0.1:0")
 ```
 
 
+```go
+func (s *Server) RegisterName(name string, service interface{}, metadata ...string) 
+```
+
+```go
+func NewServer() *Server
+func (s *Server) Address() string
+func (s *Server) Auth(fn AuthorizationFunc) error
+func (s *Server) Close() error
+```
+
+
+
