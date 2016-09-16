@@ -72,6 +72,8 @@ func main() {
 
  server.RegisterName("Arith", new(Arith)) server.Serve("tcp", "127.0.0.1:8972")}
 ```
+这个简单的例子演示了只有用户使用"Bear 0b79bab50daca910b000d4f1a2b675d604257e42" acces_token 访问时才提供服务，否则报错。
+
 
 
 
