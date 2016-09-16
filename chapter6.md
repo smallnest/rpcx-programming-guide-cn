@@ -41,7 +41,10 @@ func NewServer() *Server
 func (s *Server) Address() string
 ```
 
+```go
 func (s *Server) Auth(fn AuthorizationFunc) error
+```
+
 func (s *Server) Close() error
 ```
 
