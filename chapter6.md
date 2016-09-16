@@ -112,7 +112,9 @@ type Server struct {
  //Metadata describes extra info about this service, for example, weight, active status Metadata string
  Timeout time.Duration
  ReadTimeout time.Duration
- WriteTimeout time.Duration // contains filtered or unexported fields }
+ WriteTimeout time.Duration
+ // contains filtered or unexported fields
+ }
 
 ```
 
