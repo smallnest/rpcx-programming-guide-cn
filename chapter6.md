@@ -14,4 +14,5 @@ func (s *Server) Start(network, address string)
 func (s *Server) StartTLS(network, address string, config *tls.Config)
 ```
 
-`ServeXXX`方法可以以HTTP或者TCP提供服务，还可以提供TLS的设置。提供多种方法是为了让用户
+`ServeXXX`方法的方法会阻塞当前的goroutine，如果不想阻塞当前的goroutine，
+
