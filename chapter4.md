@@ -216,7 +216,7 @@ func callServer(s rpcx.ClientSelector) {
 ```
 
 
-输出结果,可以看到:
+输出结果,可以看到调用基本上随机的分布在两个服务器上:
 ```sh
 Arith: 7*8=560
 Arith: 7*8=56
