@@ -27,6 +27,11 @@ func main() {
  flag.Parse()
 
  server := rpcx.NewServer()
- rplugin := &plugin.ZooKeeperRegisterPlugin{ ServiceAddress: "tcp@" + *addr, ZooKeeperServers: []string{*zk}, BasePath: "/rpcx", Metrics: metrics.NewRegistry(), Services: make([]string, 1), UpdateInterval: 10 * time.Second, } rplugin.Start() server.PluginContainer.Add(rplugin) server.RegisterName(*n, new(Arith), "weight=5&state=active") server.Serve("tcp", *addr)}
+ rplugin := &plugin.ZooKeeperRegisterPlugin{
+  ServiceAddress: "tcp@" + *addr,
+  ZooKeeperServers: []string{*zk},
+  BasePath: "/rpcx",
+  Metrics: metrics.NewRegistry(),
+  Services: make([]string, 1), UpdateInterval: 10 * time.Second, } rplugin.Start() server.PluginContainer.Add(rplugin) server.RegisterName(*n, new(Arith), "weight=5&state=active") server.Serve("tcp", *addr)}
 ```
  
