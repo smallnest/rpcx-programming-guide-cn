@@ -141,6 +141,12 @@ func main() {
  client.Close()}
 ```
 
+客户端代码也和zookeeper类似，它使用EtcdClientSelector创建rpcx.Client。
+
+## Consul
+
+[TODO]
+
 
 
 
