@@ -81,7 +81,9 @@ client := rpcx.NewClient(s)
 }
 ```
 
-客户端的变化不大，只是将直连的ClientSelector换成了ZooKeeperClientSelector。
+客户端的变化不大，只是将直连的ClientSelector换成了ZooKeeperClientSelector,当然你需要在将zookeeper和服务的基本信息设置到这个对象上，rpcx根据这个信息生成一个rpcx.Client对象。
+
+
 
 
 
