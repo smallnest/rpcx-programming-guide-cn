@@ -72,12 +72,14 @@ func main() {
 
 如果使用缺省的服务器，你可以写如下的代码：
 ```go 
-rpcx.RegisterName("Arith", new(Arith))rpcx.Serve("tcp", "127.0.0.1:8972")
+rpcx.RegisterName("Arith", new(Arith))
+rpcx.Serve("tcp", "127.0.0.1:8972")
 ```
 
 如果你有官方库的开发经验，或者你学习了本书第二章的内容，你会发现它和官方库的开发几乎完全一样，rpcx隐藏了内部处理的细节，让你依然可以很轻易的进行rpc的开发。
 
 ### 客户端同步调用
+客户端代码也和官方库类似，但是首先它会配置一个`ClientSelector`,根据注册中心的不同，这个ClientSelector具体的实现不同。因为这个例子是简单的端对端的操作，所以我们使用直连的ClientSelector:
 
 
 
