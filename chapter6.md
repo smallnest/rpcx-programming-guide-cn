@@ -41,11 +41,14 @@ func NewServer() *Server
 func (s *Server) Address() string
 ```
 
+`Close`则关闭监听，停止服务。
 ```go
-func (s *Server) Auth(fn AuthorizationFunc) error
+func (s *Server) Close() error
 ```
 
-func (s *Server) Close() error
+
+```go
+func (s *Server) Auth(fn AuthorizationFunc) error
 ```
 
 
