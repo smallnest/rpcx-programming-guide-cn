@@ -57,7 +57,11 @@ func (t *Arith) Mul(args *Args, reply *Reply) error {
 
 然后注册这个服务启动就可以了：
 ```go 
-func main() { server := rpcx.NewServer() server.RegisterName("Arith", new(Arith)) server.Serve("tcp", "127.0.0.1:8972")}
+func main() { 
+    server := rpcx.NewServer() 
+    server.RegisterName("Arith", new(Arith)) 
+    server.Serve("tcp", "127.0.0.1:8972")
+}
 ```
 
 
