@@ -63,7 +63,9 @@ func main() {
     server.Serve("tcp", "127.0.0.1:8972")
 }
 ```
-和官方库rpc以及http一样， rpcx提供了一个缺省的Server,
+和官方库rpc以及http一样， rpcx提供了一个缺省的Server,并且在rpcx包下提供了一些便利的方法。但是如果你想使用定制的服务器，你可以使用`rpcx.NewServer`生成一个新的服务器对象。
+
+
 
 ## 多服务调用
 
