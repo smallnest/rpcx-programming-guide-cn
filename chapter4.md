@@ -36,6 +36,19 @@ RPCX就是为Go生态圈提供的一个全功能的RPC框架,它参考了国内�
 
 本书中常用的一个例子就是提供一个乘法的服务，客户端提供两个数，服务器计算这两个数的乘积返回。
 
+首先，和官方库的开发一样，定义相应的数据接口。这个例子中我们都使用默认的配置，包括序列化库Gob:
+
+```go 
+type Args struct { A int `msg:"a"` B int `msg:"b"`}
+
+type Reply struct { C int `msg:"c"`}
+
+type Arith int
+
+func (t *Arith) Mul(args *Args, reply *Reply) error { reply.C = args.A * args.B return nil}
+```
+
+
 
 
 ## 多服务调用
