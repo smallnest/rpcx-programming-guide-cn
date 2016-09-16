@@ -117,7 +117,9 @@ type Server struct {
  }
 ```
 
-`ServerCodecFunc`
+`ServerCodecFunc`用来设置序列化方法。
+
+
 
 
 
