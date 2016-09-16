@@ -129,7 +129,11 @@ func main() {
 
  args := &Args{7, 8} var reply Reply
 
- for i := 0; i < 1000; i++ { err := client.Call(*n+".Mul", args, &reply) if err != nil { fmt.Printf("error for "+*n+": %d*%d, %v \n", args.A, args.B, err) } else { fmt.Printf(*n+": %d*%d=%d \n", args.A, args.B, reply.C) } }
+ for i := 0; i < 1000; i++ {
+  err := client.Call(*n+".Mul", args, &reply)
+  if err != nil {
+  fmt.Printf("error for "+*n+": %d*%d, %v \n", args.A, args.B, err)
+  } else { fmt.Printf(*n+": %d*%d=%d \n", args.A, args.B, reply.C) } }
 
  client.Close()}
 ```
