@@ -111,7 +111,8 @@ type Server struct {
  PluginContainer IServerPluginContainer
  //Metadata describes extra info about this service, for example, weight, active status Metadata string
  Timeout time.Duration
- ReadTimeout time.Duration WriteTimeout time.Duration // contains filtered or unexported fields }
+ ReadTimeout time.Duration
+ WriteTimeout time.Duration // contains filtered or unexported fields }
 
 ```
 
