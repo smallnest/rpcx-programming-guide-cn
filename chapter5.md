@@ -72,7 +72,8 @@ client := rpcx.NewClient(s)
   err := client.Call(*n+".Mul", args, &reply)
   if err != nil {
     fmt.Printf("error for "+*n+": %d*%d, %v \n", args.A, args.B, err)
-  } else { fmt.Printf(*n+": %d*%d=%d \n", args.A, args.B, reply.C) } }
+  } else {
+   fmt.Printf(*n+": %d*%d=%d \n", args.A, args.B, reply.C) } }
 
  client.Close()}
 ```
