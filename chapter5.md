@@ -57,7 +57,8 @@ func main() {
 
 ### 客户端
 ```go
-var zk = flag.String("zk", "127.0.0.1:2181", "zookeeper URL")var n = flag.String("n", "127.0.0.1:2181", "Arith")
+var zk = flag.String("zk", "127.0.0.1:2181", "zookeeper URL")
+var n = flag.String("n", "127.0.0.1:2181", "Arith")
 
 func main() { flag.Parse()
 
