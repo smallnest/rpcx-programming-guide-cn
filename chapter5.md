@@ -117,7 +117,8 @@ func main() {
 
 ### 客户端
 ```go 
-var e = flag.String("e", "http://127.0.0.1:2379", "etcd URL")var n = flag.String("n", "Arith", "Service Name")
+var e = flag.String("e", "http://127.0.0.1:2379", "etcd URL")
+var n = flag.String("n", "Arith", "Service Name")
 
 func main() { flag.Parse()
 
