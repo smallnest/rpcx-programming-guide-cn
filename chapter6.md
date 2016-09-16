@@ -101,6 +101,9 @@ func main() {
 客户端很简单，调用`Auth`方法设置access_token和token_type(optional)即可。
 
 
+rpcx创建了一个缺省的`Server`，并提供了一些辅助方法来暴露Server的方法，因此你也可以直接调用`rpcx.XXX`方法来调用缺省的Server的方法。
+
+
 
 
 
