@@ -81,6 +81,10 @@ rpcx.Serve("tcp", "127.0.0.1:8972")
 ### 客户端同步调用
 客户端代码也和官方库类似，但是首先它会配置一个`ClientSelector`,根据注册中心的不同，这个ClientSelector具体的实现不同。因为这个例子是简单的端对端的操作，所以我们使用直连的ClientSelector:
 
+```go 
+ s := &rpcx.DirectClientSelector{Network: "tcp", Address: "127.0.0.1:8972", DialTimeout: 10 * time.Second} client := rpcx.NewClient(s)
+```
+
 
 
 ## 多服务调用
