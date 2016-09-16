@@ -90,6 +90,9 @@ rpcx.Serve("tcp", "127.0.0.1:8972")
 它所使用的数据结构和服务端一样。如果客户端和服务器端在一个工程里，所以你可以访问，它们可以共享一套数据结构。但是有些情况下服务方只提供一个说明文档，数据结构还得客户端自己定义：
 
 ```go 
+type Args struct { A int `msg:"a"` B int `msg:"b"`}
+
+type Reply struct { C int `msg:"c"`}
 
 ```
 
