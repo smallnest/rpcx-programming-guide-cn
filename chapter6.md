@@ -97,6 +97,8 @@ func main() {
 
  client.Close()
 }
+
+客户端很简单，调用`Auth`方法设置access_token和token_type(optional)即可。
 ```
 
 
