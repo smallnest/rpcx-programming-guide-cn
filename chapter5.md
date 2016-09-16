@@ -124,7 +124,8 @@ func main() {
  flag.Parse()
 
  //basePath = "/rpcx/" + serviceName
- s := clientselector.NewEtcdClientSelector([]string{*e}, "/rpcx/"+*n, time.Minute, rpcx.RandomSelect, time.Minute) client := rpcx.NewClient(s)
+ s := clientselector.NewEtcdClientSelector([]string{*e}, "/rpcx/"+*n, time.Minute, rpcx.RandomSelect, time.Minute)
+ client := rpcx.NewClient(s)
 
  args := &Args{7, 8} var reply Reply
 
