@@ -12,5 +12,7 @@ rpcx支持多种路由选择算法：
 
 WeightedRoundRobin是参考Nginx实现的基于权重的轮转的算法，既可以实现权重，也会将请求较为平均的发送给各个服务器。
 
-ConsistentHash选择算法需要用户定义一个Hash算法，客户端根据这个Hash算法计算应该选择哪个服务器。
+ConsistentHash选择算法需要用户定义一个Hash算法，客户端根据这个Hash算法计算应该选择哪个服务器, rpcx提供了JumpConsistentHash算法，它可以根据请求参数选择服务器，相同的参数会选择相同的服务器，当然你也可以定制自己的Hash算法以实现不同的业务逻辑。
+
+
 
