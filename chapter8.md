@@ -38,7 +38,7 @@ type ServerCodecFunc func(conn io.ReadWriteCloser) rpc.ServerCodec
 
 它们返回官方库的ClientCodec和ServerCodec。
 
-当前rpcx提供了以下的序列化器:
+当前rpcx提供了以下的序列化器:gob、bson、gencode、json-rpc、json-rpc2、protobuf。
 ```go
 func NewBsonClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
 
