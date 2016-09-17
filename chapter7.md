@@ -72,3 +72,7 @@ type Client struct {
  }
 ```
 你可以设置rpcx.Client的序列化方式、TLS、失败模式、失败重试次数，超时等，还可以往它的插件容器中增加插件。
+
+重试次数只在失败模式Failover或者Failtry下起作用。
+
+
