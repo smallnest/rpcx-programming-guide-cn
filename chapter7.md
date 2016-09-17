@@ -16,3 +16,5 @@ func NewMultiClientSelector(servers []*ServerPeer, sm rpcx.SelectMode, dailTimeo
 
 func NewZooKeeperClientSelector(zkServers []string, basePath string, sessionTimeout time.Duration, sm rpcx.SelectMode, dailTimeout time.Duration) *ZooKeeperClientSelector
 ```
+
+它们都实现了`ClientSelector`接口。
