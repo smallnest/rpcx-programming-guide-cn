@@ -19,5 +19,6 @@ func NewZooKeeperClientSelector(zkServers []string, basePath string, sessionTime
 
 它们都实现了`ClientSelector`接口。
 ```go 
+type ClientSelector interface { //Select returns a new client and it also update current client Select(clientCodecFunc ClientCodecFunc, options ...interface{}) (*rpc.Client, error) //SetClient set current client SetClient(*Client) SetSelectMode(SelectMode) //AllClients returns all Clients AllClients(clientCodecFunc ClientCodecFunc) []*rpc.Client }
 
 ```
