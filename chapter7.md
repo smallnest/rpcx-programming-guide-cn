@@ -38,3 +38,17 @@ type ClientSelector interface {
 
 所以你可以看到，底层rpcx还是利用官方库`net/rpc`进行通讯的。
 
+```go 
+type Client
+
+func NewClient(s ClientSelector) *Client
+
+func (c *Client) Auth(authorization, tag string) error
+
+func (c *Client) Call(serviceMethod string, args interface{}, reply interface{}) (err error)
+
+func (c *Client) Close() error
+
+func (c *Client) Go(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call) *rpc.Call
+```
+
