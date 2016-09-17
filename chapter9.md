@@ -33,7 +33,7 @@ func TestRateLimitingPlugin(t *testing.T) {
  }
  if total > 1100 {
     t.Errorf("rate limiting has not work. Handled: %d, Expected: about 1000", total)
-  }
+ }
 }
 
 ```
