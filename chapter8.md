@@ -18,5 +18,9 @@
 
 rpcx的Server和Client类型都包含一个字段用来设置序列化器：
 ```go
-
+type Client struct {
+ ……
+ ClientCodecFunc ClientCodecFunc
+ ……
+}
 ```
