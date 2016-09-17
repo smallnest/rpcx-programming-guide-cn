@@ -30,8 +30,8 @@ func TestRateLimitingPlugin(t *testing.T) {
   if p.HandleConnAccept(nil) {
     total++
    }
-  }
-  if total > 1100 {
+ }
+ if total > 1100 {
     t.Errorf("rate limiting has not work. Handled: %d, Expected: about 1000", total)
   }
 }
