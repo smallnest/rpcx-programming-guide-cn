@@ -23,4 +23,11 @@ type Client struct {
  ClientCodecFunc ClientCodecFunc
  ……
 }
+
+type Server struct {
+ ServerCodecFunc ServerCodecFunc
+ ……
+}
 ```
+
+
