@@ -37,3 +37,4 @@ type ClientSelector interface {
 `AllClients`返回对所有的服务的rpc.Client slice。
 
 所以你可以看到，底层rpcx还是利用官方库`net/rpc`进行通讯的。
+
