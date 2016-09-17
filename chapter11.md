@@ -4,8 +4,7 @@ rpcx面向的是大规模的集群服务，所以同一个服务可能会部署�
 
 rpcx支持多种路由选择算法：
 
-* RandomSelect SelectMode = iota
-* RoundRobin
-* WeightedRoundRobin
-* LeastActive
-* ConsistentHash
+* RandomSelect： 随机选择
+* RoundRobin: 轮转的方式
+* WeightedRoundRobin: 基于权重的平滑的选择
+* ConsistentHash： 快速一致哈希
