@@ -7,7 +7,9 @@ Metrics是一个Java性能统计包，非常的流行。而[go-metrics](github.c
 * serviceCounter: 注册的服务的个数
 * clientMeter: 吞吐率
 * service_XXX_Read_Counter: 服务调用次数
-* service_XXX_Write_Counter: 
+* service_XXX_Write_Counter: 服务返回次数
+* serice_XXX_CallTime: 服务调用时间
+
 
 
 
