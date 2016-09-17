@@ -10,7 +10,7 @@ Metrics是一个Java性能统计包，非常的流行。而[go-metrics](github.c
 * service_XXX_Write_Counter: 服务返回次数
 * serice_XXX_CallTime: 服务调用时间
 
-
+统计数据可以输出到控制台、syslog、graphite、influxdb、librato、stathat等
 
 
 ## 
