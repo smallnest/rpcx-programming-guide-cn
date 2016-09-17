@@ -20,6 +20,7 @@ Metrics是一个Java性能统计包，非常的流行。而[go-metrics](github.c
 
 你需要指定多长时间往桶中放入一个令牌以及桶最大的容量。这个插件控制的是整个服务器的连接，而不是单一的某个服务的能力。
 
+
 一个例子如下：
 ```go
 func TestRateLimitingPlugin(t *testing.T) {
@@ -37,5 +38,8 @@ func TestRateLimitingPlugin(t *testing.T) {
 }
 
 ```
+
+这个例子中初始化有1000个令牌，每秒增加一个令牌，在程序的运行过程中可能会增加几个令牌，但是这个短短的处理过程中也就1000多几个令牌，令牌的速度被限制住了。
+
 
 
