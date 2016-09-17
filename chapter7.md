@@ -32,6 +32,7 @@ type ClientSelector interface {
 ```
 
 `Select`从服务列表中根据路由算法选择一个服务来调用，它返回的是一个rpc.Client对象，这个对象建立了对实际选择的服务的连接。
+`SetClient`用来建立对当前选择的Client的引用，它用来关联一个rpcx.Client。
 `SetSelectMode`可以用来设置路由算法，路由算法根据一定的规则从服务列表中来选择服务。
 `AllClients`返回对所有的服务的rpc.Client slice。
 
