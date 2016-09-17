@@ -3,7 +3,7 @@
 不同的注册中心有不同的ClientSelector, rpcx利用ClientSelector配置到注册中心的连接以及客户端的连接，然后根据ClientSelector生成rpcx.Client。
 
 
-注册中心那一章我们已经介绍了三种ClientSeletor,目前rpcx支持四种ClientSelector:
+注册中心那一章我们已经介绍了三种ClientSeletor,目前rpcx支持五种ClientSelector:
 
 ```go
 type ConsulClientSelector
