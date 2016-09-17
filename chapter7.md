@@ -53,3 +53,7 @@ func (c *Client) Close() error
 func (c *Client) Go(serviceMethod string, args interface{}, reply interface{}, done chan *rpc.Call) *rpc.Call
 ```
 
+rpcx.Client的定义如下：
+```go
+type Client struct { ClientSelector ClientSelector ClientCodecFunc ClientCodecFunc PluginContainer IClientPluginContainer FailMode FailMode TLSConfig *tls.Config Retries int //Timeout sets deadline for underlying net.Conns Timeout time.Duration //Timeout sets readdeadline for underlying net.Conns ReadTimeout time.Duration //Timeout sets writedeadline for underlying net.Conns WriteTimeout time.Duration // contains filtered or unexported fields }
+```
