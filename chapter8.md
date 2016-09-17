@@ -32,7 +32,13 @@ type Server struct {
 
 这两个字段的类型定义如下:
 ```go
-
+type ClientCodecFunc func(conn io.ReadWriteCloser) rpc.ClientCodec
 type ServerCodecFunc func(conn io.ReadWriteCloser) rpc.ServerCodec
 ```
 
+它们返回官方库的ClientCodec和ServerCodec。
+
+当前rpcx提供了以下的序列化器:
+```go
+
+```
