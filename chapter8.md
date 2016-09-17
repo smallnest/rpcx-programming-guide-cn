@@ -40,5 +40,28 @@ type ServerCodecFunc func(conn io.ReadWriteCloser) rpc.ServerCodec
 
 当前rpcx提供了以下的序列化器:
 ```go
+func NewBsonClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewBsonServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+
+func NewGencodeClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewGencodeServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+
+func NewGobClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewGobServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+
+func NewJSONRPC2ClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewJSONRPC2ServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+
+func NewJSONRPCClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewJSONRPCServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+
+func NewProtobufClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewProtobufServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
 
 ```
