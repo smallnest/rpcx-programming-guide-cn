@@ -3,7 +3,7 @@
 通过一些额外的插件，我们可以为rpcx实现更多的功能和控制。本章就介绍两个有趣的插件。
 
 ## MetricsPlugin
-
+Metrics是一个Java性能统计包，非常的流行。而[go-metrics](github.com/rcrowley/go-metrics)是
 
 
 ## 
