@@ -30,4 +30,9 @@ type Server struct {
 }
 ```
 
+这两个字段的类型定义如下:
+```go
+
+type ServerCodecFunc func(conn io.ReadWriteCloser) rpc.ServerCodec
+```
 
