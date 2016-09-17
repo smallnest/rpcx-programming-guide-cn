@@ -26,3 +26,5 @@ type ClientSelector interface {
  //SetClient set current client SetClient(*Client) SetSelectMode(SelectMode)
  //AllClients returns all Clients AllClients(clientCodecFunc ClientCodecFunc) []*rpc.Client }
 ```
+
+`Select`从服务列表中根据路由算法选择一个服务来调用
