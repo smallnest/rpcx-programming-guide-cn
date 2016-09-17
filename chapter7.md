@@ -23,10 +23,13 @@ type DirectClientSelector struct { Network, Address string DialTimeout time.Dura
 ```go 
 type ClientSelector interface {
  //Select returns a new client and it also update current client Select(clientCodecFunc ClientCodecFunc, options ...interface{}) (*rpc.Client, error)
- //SetClient set current client SetClient(*Client) SetSelectMode(SelectMode)
+ //SetClient set current client
+ SetClient(*Client) SetSelectMode(SelectMode)
  //AllClients returns all Clients AllClients(clientCodecFunc ClientCodecFunc) []*rpc.Client }
 ```
 
 `Select`从服务列表中根据路由算法选择一个服务来调用，它返回的是一个rpc.Client对象，这个对象建立了对实际选择的服务的连接。
 `SetSelectMode`可以用来设置路由算法，路由算法根据一定的规则从服务列表中来选择服务。
 `AllClients`返回对所有的服务的rpc.Client slice。
+
+
