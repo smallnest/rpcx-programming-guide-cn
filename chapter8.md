@@ -12,5 +12,7 @@
 
 关于Java的序列化框架的比较可以参考[jvm-serializers](https://github.com/eishay/jvm-serializers/):
 ![](ch8-jvm-serializers.png)
+目前最快的是[colfer](https://github.com/pascaldekloe/colfer)，比protobuf、protostuff还快。
+
 
 
