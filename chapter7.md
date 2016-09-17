@@ -15,6 +15,8 @@ func NewEtcdClientSelector(etcdServers []string, basePath string, sessionTimeout
 func NewMultiClientSelector(servers []*ServerPeer, sm rpcx.SelectMode, dailTimeout time.Duration) *MultiClientSelector
 
 func NewZooKeeperClientSelector(zkServers []string, basePath string, sessionTimeout time.Duration, sm rpcx.SelectMode, dailTimeout time.Duration) *ZooKeeperClientSelector
+
+type DirectClientSelector struct { Network, Address string DialTimeout time.Duration Client *Client }
 ```
 
 它们都实现了`ClientSelector`接口。
