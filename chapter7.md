@@ -36,7 +36,7 @@ type ClientSelector interface {
 `SetSelectMode`可以用来设置路由算法，路由算法根据一定的规则从服务列表中来选择服务。
 `AllClients`返回对所有的服务的rpc.Client slice。
 
-所以你可以看到，底层rpcx还是利用官方库`net/rpc`进行通讯的。
+所以你可以看到，底层rpcx还是利用官方库`net/rpc`进行通讯的。因此通过`NewClient`得到的rpcx.Client调用方法和官方库类似，`Call`是同步调用，`Go`是异步调用，调用完毕后可以`Close`释放连接。
 
 ```go 
 type Client
