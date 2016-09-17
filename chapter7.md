@@ -26,7 +26,8 @@ type ClientSelector interface {
  Select(clientCodecFunc ClientCodecFunc, options ...interface{}) (*rpc.Client, error)
  //SetClient set current client
  SetClient(*Client) SetSelectMode(SelectMode)
- //AllClients returns all Clients AllClients(clientCodecFunc ClientCodecFunc) []*rpc.Client }
+ //AllClients returns all Clients
+ AllClients(clientCodecFunc ClientCodecFunc) []*rpc.Client }
 ```
 
 `Select`从服务列表中根据路由算法选择一个服务来调用，它返回的是一个rpc.Client对象，这个对象建立了对实际选择的服务的连接。
