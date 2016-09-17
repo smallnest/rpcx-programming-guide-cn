@@ -15,3 +15,5 @@ Metrics是一个Java性能统计包，非常的流行。而[go-metrics](github.c
 
 ## RateLimitingPlugin
 限流是高并发的情况下保证服务质量常用的一种手段。一个服务器的能力有限的，超过这个限度，我们可以拒绝新的连接，保证服务器还能够正常的运行。
+
+限流插件使用 https://github.com/juju/ratelimit 来实现的，它是基于令牌桶的方式获取
