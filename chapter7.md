@@ -37,6 +37,7 @@ type ClientSelector interface {
 `AllClients`返回对所有的服务的rpc.Client slice。
 
 所以你可以看到，底层rpcx还是利用官方库`net/rpc`进行通讯的。因此通过`NewClient`得到的rpcx.Client调用方法和官方库类似，`Call`是同步调用，`Go`是异步调用，调用完毕后可以`Close`释放连接。
+`Auth`方法可以设置授权验证的信息。
 
 ```go 
 type Client
