@@ -62,5 +62,13 @@ type Client struct {
  FailMode FailMode
  TLSConfig *tls.Config
  Retries int
- //Timeout sets deadline for underlying net.Conns Timeout time.Duration //Timeout sets readdeadline for underlying net.Conns ReadTimeout time.Duration //Timeout sets writedeadline for underlying net.Conns WriteTimeout time.Duration // contains filtered or unexported fields }
+ //Timeout sets deadline for underlying net.Conns
+ Timeout time.Duration
+ //Timeout sets readdeadline for underlying net.Conns
+ ReadTimeout time.Duration
+ //Timeout sets writedeadline for underlying net.Conns 
+ WriteTimeout time.Duration
+ // contains filtered or unexported fields
+ }
 ```
+
