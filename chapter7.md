@@ -71,4 +71,4 @@ type Client struct {
  // contains filtered or unexported fields
  }
 ```
-
+你可以设置rpcx.Client的序列化方式、TLS、失败模式、失败重试次数，超时等，还可以往它的插件容器中增加插件。
