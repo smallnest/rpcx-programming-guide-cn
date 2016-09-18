@@ -4,7 +4,7 @@
 
  "generator": "site",
 
- "title": "Cowman's Gitbook",
+ "title": "Go RPC开发指南",
 
  "plugins": ["autocover"],
 
@@ -12,9 +12,9 @@
 
  "autocover": {
 
- "title": "Cowman's Gitbook",
+ "title": "Go RPC开发指南",
 
- "author": "Cowman",
+ "author": "晁岳攀 http://colobu.com",
 
  "font": {
 
