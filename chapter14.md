@@ -38,3 +38,25 @@ func (p *ServerPluginContainer) GetName(plugin IPlugin) string
 func (p *ServerPluginContainer) Remove(pluginName string) error
 ```
 
+事实上，服务器端的插件点定义了几个接口，你只需要实现一个或者几个接口即可。
+```go
+//IRegisterPlugin represents register plugin. IRegisterPlugin interface { Register(name string, rcvr interface{}, metadata ...string) error }
+
+ //IPostConnAcceptPlugin represents connection accept plugin. // if returns false, it means subsequent IPostConnAcceptPlugins should not contiune to handle this conn // and this conn has been closed. IPostConnAcceptPlugin interface { HandleConnAccept(net.Conn) bool }
+
+ //IServerCodecPlugin represents . IServerCodecPlugin interface { IPreReadRequestHeaderPlugin IPostReadRequestHeaderPlugin IPreReadRequestBodyPlugin IPostReadRequestBodyPlugin IPreWriteResponsePlugin IPostWriteResponsePlugin }
+
+ //IPreReadRequestHeaderPlugin represents . IPreReadRequestHeaderPlugin interface { PreReadRequestHeader(r *rpc.Request) error }
+
+ //IPostReadRequestHeaderPlugin represents . IPostReadRequestHeaderPlugin interface { PostReadRequestHeader(r *rpc.Request) error }
+
+ //IPreReadRequestBodyPlugin represents . IPreReadRequestBodyPlugin interface { PreReadRequestBody(body interface{}) error }
+
+ //IPostReadRequestBodyPlugin represents . IPostReadRequestBodyPlugin interface { PostReadRequestBody(body interface{}) error }
+
+ //IPreWriteResponsePlugin represents . IPreWriteResponsePlugin interface { PreWriteResponse(*rpc.Response, interface{}) error }
+
+ //IPostWriteResponsePlugin represents . IPostWriteResponsePlugin interface { PostWriteResponse(*rpc.Response, interface{}) error }
+```
+
+
