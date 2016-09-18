@@ -44,6 +44,10 @@ func NewBsonClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
 
 func NewBsonServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
 
+func NewColferClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
+
+func NewColferServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
+
 func NewGencodeClientCodec(conn io.ReadWriteCloser) rpc.ClientCodec
 
 func NewGencodeServerCodec(conn io.ReadWriteCloser) rpc.ServerCodec
