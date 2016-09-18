@@ -63,5 +63,36 @@ func (p *ServerPluginContainer) Remove(pluginName string) error
 
 客户端也提供了一些插入点：
 ```go
+func (p *ClientPluginContainer) DoPostReadResponseBody(body interface{}) error
+
+func (p *ClientPluginContainer) DoPostReadResponseHeader(r *rpc.Response) error
+
+func (p *ClientPluginContainer) DoPostWriteRequest(r *rpc.Request, body interface{}) error
+
+func (p *ClientPluginContainer) DoPreReadResponseBody(body interface{}) error
+
+func (p *ClientPluginContainer) DoPreReadResponseHeader(r *rpc.Response) error
+
+func (p *ClientPluginContainer) DoPreWriteRequest(r *rpc.Request, body interface{}) error
+```
+
+你可以将插件加入的插件容器中：
+```go
+func (p *ClientPluginContainer) Add(plugin IPlugin) error
+
+func (p *ClientPluginContainer) GetAll() []IPlugin
+
+func (p *ClientPluginContainer) GetByName(pluginName string) IPlugin
+
+func (p *ClientPluginContainer) GetDescription(plugin IPlugin) string
+
+func (p *ClientPluginContainer) GetName(plugin IPlugin) string
+
+func (p *ClientPluginContainer) Remove(pluginName string) error
+```
+
+它也定义了一些插入点的接口，你只需实现这些接口即可。
+```go
+
 
 ```
