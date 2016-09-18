@@ -22,3 +22,8 @@ func (p *ServerPluginContainer) DoPreWriteResponse(resp *rpc.Response, body inte
 func (p *ServerPluginContainer) DoRegister(name string, rcvr interface{}, metadata ...string) error
 
 ```
+
+你可以将实现插入点方法的插件加入到服务器的容器中,或者移除容器。
+```go
+
+```
