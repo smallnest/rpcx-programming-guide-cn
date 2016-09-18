@@ -93,6 +93,16 @@ func (p *ClientPluginContainer) Remove(pluginName string) error
 
 它也定义了一些插入点的接口，你只需实现这些接口即可。
 ```go
+//IPreReadResponseHeaderPlugin represents . IPreReadResponseHeaderPlugin interface { PreReadResponseHeader(*rpc.Response) error }
 
+ //IPostReadResponseHeaderPlugin represents . IPostReadResponseHeaderPlugin interface { PostReadResponseHeader(*rpc.Response) error }
+
+ //IPreReadResponseBodyPlugin represents . IPreReadResponseBodyPlugin interface { PreReadResponseBody(interface{}) error }
+
+ //IPostReadResponseBodyPlugin represents . IPostReadResponseBodyPlugin interface { PostReadResponseBody(interface{}) error }
+
+ //IPreWriteRequestPlugin represents . IPreWriteRequestPlugin interface { PreWriteRequest(*rpc.Request, interface{}) error }
+
+ //IPostWriteRequestPlugin represents . IPostWriteRequestPlugin interface { PostWriteRequest(*rpc.Request, interface{}) error }
 
 ```
