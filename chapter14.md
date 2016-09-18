@@ -25,5 +25,16 @@ func (p *ServerPluginContainer) DoRegister(name string, rcvr interface{}, metada
 
 你可以将实现插入点方法的插件加入到服务器的容器中,或者移除容器。
 ```go
+func (p *ServerPluginContainer) Add(plugin IPlugin) error
 
+func (p *ServerPluginContainer) GetAll() []IPlugin
+
+func (p *ServerPluginContainer) GetByName(pluginName string) IPlugin
+
+func (p *ServerPluginContainer) GetDescription(plugin IPlugin) string
+
+func (p *ServerPluginContainer) GetName(plugin IPlugin) string
+
+func (p *ServerPluginContainer) Remove(pluginName string) error
 ```
+
