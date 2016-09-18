@@ -59,4 +59,9 @@ func (p *ServerPluginContainer) Remove(pluginName string) error
  //IPostWriteResponsePlugin represents . IPostWriteResponsePlugin interface { PostWriteResponse(*rpc.Response, interface{}) error }
 ```
 
+## 客户端插入点
 
+客户端也提供了一些插入点：
+```go
+
+```
