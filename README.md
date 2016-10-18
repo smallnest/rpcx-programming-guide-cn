@@ -59,7 +59,7 @@ Motan 在微博平台中已经广泛应用，每天为数百个服务完成近�
 
 [thrift](https://thrift.apache.org/)是Apache的一个跨语言的高性能的服务框架，也得到了广泛的应用。它的功能类似 gRPC, 支持跨语言，不支持服务治理。
 
-[rpcx] 是一个分布式的Go语言的 RPC 框架，支持Zookepper、etcd、consul多种服务发现方式，多种服务路由方式， 是目前性能最好的 RPC 框架之一。
+[rpcx](https://github.com/smallnest/rpcx) 是一个分布式的Go语言的 RPC 框架，支持Zookepper、etcd、consul多种服务发现方式，多种服务路由方式， 是目前性能最好的 RPC 框架之一。
 
 ## RPC vs RESTful
 
