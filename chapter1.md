@@ -364,7 +364,7 @@ func NewClientWithCodec(codec ClientCodec) *Client {
 消息的结构和服务器一致，都是Header+Body的方式。
 
 客户端的调用有两个方法: `Go` 和 `Call`。 `Go`方法是异步的，它返回一个 Call指针对象， 它的Done是一个channel，如果服务返回， 
-Done就可以得到返回的对象(实际是Call对象，包含Reply和error信息)。 `Go`是同步的方式调用，它实际是调用`Call`实现的，
+Done就可以得到返回的对象(实际是Call对象，包含Reply和error信息)。 `Call`是同步的方式调用，它实际是调用`Go`实现的，
 我们可以看看它是怎么实现的，可以了解一下异步变同步的方式：
 ```go 
 func (client *Client) Call(serviceMethod string, args interface{}, reply interface{}) error {
