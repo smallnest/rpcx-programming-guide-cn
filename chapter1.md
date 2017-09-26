@@ -39,7 +39,7 @@ func (t *T) MethodName(argType T1, replyType *T2) error
 
 ## 简单例子
 
-首选介绍一个简单的例子。
+首选介绍一个简单的例子,, 摘自官方标准库的例子。
 
 这个例子中提供了对两个数相乘和相除的两个方法。
 
@@ -265,7 +265,7 @@ Server还提供了两个注册服务的方法:
 func (server *Server) register(rcvr interface{}, name string, useName bool) error
 ```
 
-受限于Go语言的特点， 我们不可能在接到客户端的请求的时候，根据反射动态的创建一个对象，就是Java那样，   
+受限于Go语言的特点， 我们不可能在接到客户端的请求的时候，根据反射动态的创建一个对象，就是Java那样，  
 因此在Go语言中，我们需要预先创建一个服务map这是在编译的时候完成的:
 
 ```go
@@ -386,7 +386,7 @@ func NewClientWithCodec(codec ClientCodec) *Client {
 
 消息的结构和服务器一致，都是Header+Body的方式。
 
-客户端的调用有两个方法: `Go` 和 `Call`。 `Go`方法是异步的，它返回一个 Call指针对象， 它的Done是一个channel，如果服务返回，   
+客户端的调用有两个方法: `Go` 和 `Call`。 `Go`方法是异步的，它返回一个 Call指针对象， 它的Done是一个channel，如果服务返回，  
 Done就可以得到返回的对象\(实际是Call对象，包含Reply和error信息\)。 `Call`是同步的方式调用，它实际是调用`Go`实现的，  
 我们可以看看它是怎么实现的，可以了解一下异步变同步的方式：
 
