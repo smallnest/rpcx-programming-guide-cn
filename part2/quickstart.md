@@ -6,7 +6,7 @@
 
 目前，随着网站的规模的扩大，一般会将单体程序逐渐演化为微服务的架构方式，这是目前流行的一种架构模式。
 
-![](part2/ch4-microservices-architecture.png)
+![](ch4-microservices-architecture.png)
 
 即使不是微服务，也会将业务拆分成不同的服务的方式，服务之间互相调用。
 
