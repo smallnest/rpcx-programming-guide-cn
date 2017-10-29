@@ -9,9 +9,9 @@ gRPC具有以下重要特征：
 RPC使用ProtoBuf来定义服务，ProtoBuf是由Google开发的一种数据序列化协议，性能出众，得到了广泛的应用。
 2. 支持多种语言
 支持C++、Java、Go、Python、Ruby、C#、Node.js、Android Java、Objective-C、PHP等编程语言。
-3.基于HTTP/2标准设计
+3. 基于HTTP/2标准设计
 
-![](ch2-gRPC.png)
+![](/part1/ch2-gRPC.png)
 
 gRPC已经应用在Google的云服务和对外提供的API中。
 

@@ -1,47 +1,53 @@
 {
-
- "output": null,
-
- "generator": "site",
-
- "title": "Cowman's Gitbook",
-
- "plugins": ["autocover"],
-
- "pluginsConfig": {
-
- "autocover": {
-
- "title": "Go RPC开发指南",
-
- "author": "晁岳攀 http://colobu.com",
-
- "font": {
-
- "size": null,
-
- "family": "Impact",
-
- "color": "#FFF"
-
- },
-
- "size": {
-
- "w": 1800,
-
- "h": 2360
-
- },
-
- "background": {
-
- "color": "#09F"
-
- }
-
- }
-
- }
-
+    "author": "smallnest <smallnest@gmail.com>",
+    "description": "A guide about Go RPC development",
+    "title": "Go RPC编程指南",
+    "links": {
+        "sharing": {
+            "all": null,
+            "facebook": null,
+            "google": null,
+            "twitter": null,
+            "weibo": null
+        },
+        "sidebar": {
+            "rpcx官方站点": "http://rpcx.site/"
+        }
+    },
+    "pdf": {
+        "fontSize": 12,
+        "footerTemplate": null,
+        "headerTemplate": null,
+        "margin": {
+            "bottom": 36,
+            "left": 62,
+            "right": 62,
+            "top": 36
+        },
+        "pageNumbers": false,
+        "paperSize": "a4"
+    },
+    "plugins": [
+        "anchors",
+        "multipart",
+        "-toc-ng",
+        "page-footer-ex",
+        "timeline",
+        "katex"
+    ],
+    "pluginsConfig": {
+        "theme-default": {
+            "showLevel": true
+        },
+        "toc": {
+            "addClass": true,
+            "className": "toc"
+        },
+        "page-footer-ex": {
+            "copyright": "By <em>smallnest</em>",
+            "markdown": false,
+            "update_label": "<i>updated</i>",
+            "update_format": "YYYY-MM-DD HH:mm:ss"
+        }
+    }
 }

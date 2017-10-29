@@ -1,9 +1,11 @@
-# 官方RPC库
+# 官方RPC标准库
+
+<!-- toc -->
 
 Go官方提供了一个[RPC库](https://golang.org/pkg/net/rpc/): `net/rpc`。
 
-包rpc提供了通过网络访问一个对象的方法的能力。  
-服务器需要注册对象， 通过对象的类型名暴露这个服务。注册后这个对象的输出方法就可以远程调用，这个库封装了底层传输的细节，包括序列化。  
+包rpc提供了通过网络访问一个对象的输出方法的能力。  
+服务器需要注册对象， 通过对象的类型名暴露这个服务。注册后这个对象的输出方法就可以远程调用，这个库封装了底层传输的细节，包括序列化(默认GOB序列化器)。  
 服务器可以注册多个不同类型的对象，但是注册相同类型的多个对象的时候会出错。
 
 同时，如果对象的方法要能远程访问，它们必须满足一定的条件，否则这个对象的方法会被忽略。
@@ -13,7 +15,7 @@ Go官方提供了一个[RPC库](https://golang.org/pkg/net/rpc/): `net/rpc`。
 * 方法的类型是可输出的 \(the method's type is exported\)
 * 方法本身也是可输出的 （the method is exported）
 * 方法必须由两个参数，必须是输出类型或者是内建类型 \(the method has two arguments, both exported or builtin types\)
-* 方法的第二个参数是指针类型 \(the method's second argument is a pointer\)
+* 方法的第二个参数必须是指针类型 \(the method's second argument is a pointer\)
 * 方法返回类型为 error \(the method has return type error\)
 
 所以一个输出方法的格式如下：
@@ -33,17 +35,17 @@ func (t *T) MethodName(argType T1, replyType *T2) error
 对于HTTP listener来说，可以调用 `HandleHTTP` 和 `http.Serve`。细节会在下面介绍。
 
 客户端可以调用`Dial`和`DialHTTP`建立连接。 客户端有两个方法调用服务: `Call` 和 `Go`，可以同步地或者异步地调用服务。  
-当然，调用的时候，需要吧服务名、方法名和参数传递给服务器。异步方法调用`Go` 通过 `Done` channel通知调用结果返回。
+当然，调用的时候，需要把服务名、方法名和参数传递给服务器。异步方法调用`Go` 通过 `Done` channel通知调用结果返回。
 
 除非显示的设置`codec`,否则这个库默认使用包`encoding/gob`作为序列化框架。
 
-## 简单例子
+## 简单例子 {#example}
 
-首选介绍一个简单的例子,, 摘自官方标准库的例子。
+首选介绍一个简单的例子, 这个例子摘自官方标准库，是一个非常简单的服务。
 
 这个例子中提供了对两个数相乘和相除的两个方法。
 
-第一步你需要定义传入参数和返回参数的数据结构：
+**第一步**你需要定义传入参数和返回参数的数据结构：
 
 ```go
 package server
@@ -57,14 +59,14 @@ type Quotient struct {
 }
 ```
 
-第二步定义一个服务对象，这个服务对象可以很简单， 比如类型是`int`或者是`interface{}`,重要的是它输出的方法。  
+**第二步**定义一个服务对象，这个服务对象可以很简单， 比如类型是`int`或者是`interface{}`,重要的是它输出的方法。  
 这里我们定义一个算术类型`Arith`，其实它是一个int类型，但是这个int的值我们在后面方法的实现中也没用到，所以它基本上就起一个辅助的作用。
 
 ```
 type Arith int
 ```
 
-第三步实现这个类型的两个方法， 乘法和除法：
+**第三步**实现这个类型的两个方法， 乘法和除法：
 
 ```go
 func (t *Arith) Multiply(args *Args, reply *int) error {
@@ -84,7 +86,7 @@ func (t *Arith) Divide(args *Args, quo *Quotient) error {
 
 目前为止，我们的准备工作已经完成，喝口茶继续下面的步骤。
 
-第四步实现RPC服务器:
+**第四步**实现RPC服务器:
 
 ```go
 arith := new(Arith)
@@ -101,7 +103,7 @@ go http.Serve(l, nil)
 
 客户端可以看到服务`Arith`以及它的两个方法`Arith.Multiply`和`Arith.Divide`。
 
-第五步创建一个客户端，建立客户端和服务器端的连接:
+**第五步**创建一个客户端，建立客户端和服务器端的连接:
 
 ```go
 client, err := rpc.DialHTTP("tcp", serverAddress + ":1234")
@@ -110,7 +112,7 @@ if err != nil {
 }
 ```
 
-然后客户端就可以进行远程调用了。比如同步的方式：
+然后客户端就可以进行远程调用了。比如同步的方式调用：
 
 ```go
 args := &server.Args{7,8}
@@ -218,7 +220,7 @@ func (server *Server) ServeCodec(codec ServerCodec) {
 
 它其实一直从连接中读取请求，然后调用`go service.call`在另外的goroutine中处理服务调用。
 
-我们从中可以学到：  
+**我们从中可以学到**：  
 1. 对象重用。 Request和Response都是可重用的，通过Lock处理竞争。这在大并发的情况下很有效。 有兴趣的读者可以参考[fasthttp](https://github.com/valyala/fasthttp)的实现。  
 2. 使用了大量的goroutine。 和Java中的线程不同，你可以创建非常多的goroutine, 并发处理非常好。 如果使用一定数量的goutine作为worker池去处理这个case，可能还会有些性能的提升，但是更复杂了。使用goroutine已经获得了非常好的性能。  
 3. 业务处理是异步的, 服务的执行不会阻塞其它消息的读取。
@@ -306,7 +308,7 @@ func (s *service) call(server *Server, sending *sync.Mutex, mtype *methodType, r
 客户端要建立和服务器的连接，可以有以下几种方式：
 
 ```go
-      func Dial(network, address string) (*Client, error)
+    func Dial(network, address string) (*Client, error)
     func DialHTTP(network, address string) (*Client, error)
     func DialHTTPPath(network, address, path string) (*Client, error)
     func NewClient(conn io.ReadWriteCloser) *Client
@@ -382,7 +384,7 @@ func NewClientWithCodec(codec ClientCodec) *Client {
 }
 ```
 
-重要的是`input`方法，它已一个死循环的方式不断地从连接中读取response,然后调用map中读取等待的Call.Done channel通知完成。
+重要的是`input`方法，它以一个死循环的方式不断地从连接中读取response,然后调用map中读取等待的Call.Done channel通知完成。
 
 消息的结构和服务器一致，都是Header+Body的方式。
 
