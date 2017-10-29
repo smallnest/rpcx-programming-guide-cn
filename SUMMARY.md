@@ -8,7 +8,14 @@
 
 ## 第二部分 编程起步
 * [RPCX起步](part2/quickstart.md)
-* [服务注册中心](part2/chapter5.md)
+* [服务注册中心](part2/registry.md)
+  * [点对点](part2/registry.md#peer2peer)
+  * [点对点](part2/registry.md#multiple)
+  * [点对点](part2/registry.md#zookeeper)
+  * [点对点](part2/registry.md#etcd)
+  * [点对点](part2/registry.md#consul)
+  * [点对点](part2/registry.md#mdns)
+  * [点对点](part2/registry.md#inprocess)
 * [服务器端开发](part2/chapter6.md)
 * [客户端开发](part2/chapter7.md)
 
