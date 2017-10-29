@@ -11,7 +11,7 @@ RPC使用ProtoBuf来定义服务，ProtoBuf是由Google开发的一种数据序�
 支持C++、Java、Go、Python、Ruby、C#、Node.js、Android Java、Objective-C、PHP等编程语言。
 3. 基于HTTP/2标准设计
 
-![](/part1/ch2-gRPC.png)
+![](part1/gRPC.png)
 
 gRPC已经应用在Google的云服务和对外提供的API中。
 
