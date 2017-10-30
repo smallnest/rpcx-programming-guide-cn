@@ -78,7 +78,7 @@ func (t *Arith) Mul(ctx context.Context, args *Args, reply *Reply) error {
 然后注册这个服务启动就可以了：
 ```go 
 func main() { 
-    s := server.Server{}
+    s := server.NewServer()
 	s.RegisterName("Arith", new(example.Arith), "")
     s.Serve("tcp", *addr)
 }
@@ -91,7 +91,7 @@ func main() {
 
 ```go 
  d := client.NewPeer2PeerDiscovery("tcp@"+*addr, "")
- xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+ xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
  defer xclient.Close()
 ```
 `NewXClient`第一个参数是服务路径，在Go实现的服务中就是服务端注册的服务名，Java实现的服务器可以是类名全路径。
@@ -118,7 +118,7 @@ args := &example.Args{
 	}
 
 reply := &example.Reply{}
-err := xclient.Call(context.Background(), args, reply)
+err := xclient.Call(context.Background(), "Mul", args, reply)
 if err != nil {
 		log.Fatalf("failed to call: %v", err)
 	}
@@ -139,7 +139,7 @@ log.Printf("%d * %d = %d", args.A, args.B, reply.C)
 
 ```go 
     reply := &example.Reply{}
-	call, err := xclient.Go(context.Background(), args, reply, nil)
+	call, err := xclient.Go(context.Background(), "Mul", args, reply, nil)
 	if err != nil {
 		log.Fatalf("failed to call: %v", err)
 	}
@@ -187,13 +187,13 @@ func (t *Arith2) Mul(ctx context.Context, args *Args, reply *Reply) error {
 ```go 
 func main() { 
     go func() {
-        s := server.NewServer(nil)
+        s := server.NewServer()
 	    s.RegisterName("Arith", new(Arith1), "")
         s.Serve("tcp", "localhost:8972")
     }()
 
     go func() {
-        s := server.NewServer(nil)
+        s := server.NewServer()
 	    s.RegisterName("Arith", new(Arith2), "")
         s.Serve("tcp", "localhost:8973")
     }()
@@ -212,7 +212,7 @@ type Reply struct { C int `msg:"c"`}
 
 func main() {
     d := client.NewMultipleServersDiscovery([]*client.KVPair{{Key: "tcp@localhost:8972"}, {Key: "tcp@localhost:8973"}})
-	xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
 	defer xclient.Close()
 
 	args := &example.Args{
@@ -222,7 +222,7 @@ func main() {
 
     for i :=0; i < 10; i++ {
         reply := &example.Reply{}
-        err := xclient.Call(context.Background(), args, reply)
+        err := xclient.Call(context.Background(), "Mul", args, reply)
         if err != nil {
             log.Fatalf("failed to call: %v", err)
         }
