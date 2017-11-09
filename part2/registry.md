@@ -545,17 +545,122 @@ func main() {
 
 ## mDNS {#mdns}
 
+mdns 即多播dns（Multicast DNS），mDNS主要实现了在没有传统DNS服务器的情况下使局域网内的主机实现相互发现和通信，使用的端口为5353，遵从dns协议，使用现有的DNS信息结构、名语法和资源记录类型。并且没有指定新的操作代码或响应代码。
+
+在局域网中，设备和设备之前相互通信需要知道对方的ip地址的，大多数情况，设备的ip不是静态ip地址，而是通过dhcp 协议动态分配的ip 地址，如何设备发现呢，就是要mdns大显身手，例如：现在物联网设备和app之间的通信，要么app通过广播，要么通过组播，发一些特定信息，感兴趣设备应答，实现局域网设备的发现，当然服务也一样。
+
+mDns协议规定了消息的基本格式和消息的收发的基本顺序，DNS-SD 协议在这基础上，首先对实例名，服务名称，域名长度/顺序等作出了具体的定义，然后规定了如何方便地进行服务发现和描述。
+
+服务实例名称 = <服务实例>.<服务类型>.<域名>
+
+服务实例一般由一个或多个标签组成，标签之间用 . 隔开。
+
+服务类型表明该服务是使用什么协议实现的，由 _ 下划线和服务使用的协议名称组成，如大部分使用的 _tcp 协议，另外，可以同时使用多个协议标签，如: “_http._tcp” 就表明该服务类型使用了基于tcp的http协议。
+
+域名一般都固定为 “local”
+
+DNS-SD 协议使用了PTR、SRV、TXT 3种类型的资源记录来完整地描述了一个服务。当主机通过查询得到了一个PTR响应记录后，就获得了一个它所关心服务的实例名称，它可以同通过继续获取 SRV 和 TXT 记录来拿到进一步的信息。其中的 SRV 记录中有该服务对应的主机名和端口号。TXT 记录中有该服务的其他附加信息。
+
+
+
+
 ### 服务器
 
+```go
+
+func main() {
+	flag.Parse()
+
+	s := server.NewServer()
+	addRegistryPlugin(s)
+
+	s.RegisterName("Arith", new(example.Arith), "")
+	s.Serve("tcp", *addr)
+}
+
+func addRegistryPlugin(s *server.Server) {
+
+	r := serverplugin.NewMDNSRegisterPlugin("tcp@"+*addr, 8972, metrics.NewRegistry(), time.Minute, "")
+	err := r.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
+	s.Plugins.Add(r)
+}
+```
 
 ### 客户端
 
+```go
+func main() {
+	flag.Parse()
 
-## Inprocess {#inpreocess}
+	d := client.NewMDNSDiscovery("Arith", 10*time.Second, 10*time.Second, "")
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+	defer xclient.Close()
 
-### 服务器
+	args := &example.Args{
+		A: 10,
+		B: 20,
+	}
+
+	reply := &example.Reply{}
+	err := xclient.Call(context.Background(), "Mul", args, reply)
+	if err != nil {
+		log.Fatalf("failed to call: %v", err)
+	}
+
+	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
+
+}
+```
+
+## Inprocess {#inprocess}
+
+这个Registry用于进程内的测试。 在开发过程中，可能不能直接连接线上的服务器直接测试，而是写一些mock程序作为服务，这个时候就可以使用这个registry, 测试通过在部署的时候再换成相应的其它registry.
+
+在这种情况下， client和server并不会走TCP或者UDP协议，而是直接进程内方法调用,所以服务器代码是和client代码在一起的。
 
 
-### 客户端
+```go
+func main() {
+	flag.Parse()
 
+	s := server.NewServer()
+	addRegistryPlugin(s)
 
+	s.RegisterName("Arith", new(example.Arith), "")
+
+	go func() {
+		s.Serve("tcp", *addr)
+	}()
+
+	d := client.NewInprocessDiscovery()
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+	defer xclient.Close()
+
+	args := &example.Args{
+		A: 10,
+		B: 20,
+	}
+
+	for i := 0; i < 100; i++ {
+
+		reply := &example.Reply{}
+		err := xclient.Call(context.Background(), "Mul", args, reply)
+		if err != nil {
+			log.Fatalf("failed to call: %v", err)
+		}
+
+		log.Printf("%d * %d = %d", args.A, args.B, reply.C)
+
+	}
+}
+
+func addRegistryPlugin(s *server.Server) {
+
+	r := client.InprocessClient
+	s.Plugins.Add(r)
+}
+
+```

@@ -16,8 +16,6 @@
   * [Consul](part2/registry.md#consul)
   * [mDNS](part2/registry.md#mdns)
   * [进程内的调用](part2/registry.md#inprocess)
-* [服务器端开发](part2/chapter6.md)
-* [客户端开发](part2/chapter7.md)
 
 ## 第三部分 特性
 * [序列化框架](chapter8.md)
