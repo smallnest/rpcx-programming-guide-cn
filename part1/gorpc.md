@@ -97,6 +97,9 @@ if e != nil {
     log.Fatal("listen error:", e)
 }
 go http.Serve(l, nil)
+
+select{
+}
 ```
 
 这里我们生成了一个Arith对象，并使用`rpc.Register`注册这个服务，然后通过HTTP暴露出来。
