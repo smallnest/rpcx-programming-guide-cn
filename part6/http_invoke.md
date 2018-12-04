@@ -55,3 +55,5 @@ func main() {
 	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
 }
 ```
+
+不能进行双向通讯， 也就是服务端不能主动发送请求给客户端。
