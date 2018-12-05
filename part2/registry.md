@@ -16,7 +16,24 @@ rpcx会自动将服务的信息比如服务名，监听地址，监听协议，�
 下面看看不同的注册中心的使用情况。
 
 ## Peer2Peer {#peer2peer}
-点对点是最简单的一种注册中心的方式，事实上没有注册中心，客户端直接得到唯一的服务器的地址。
+
+**Example:**  [102basic](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/102basic)
+
+
+点对点是最简单的一种注册中心的方式，事实上没有注册中心，客户端直接得到唯一的服务器的地址，连接服务。在系统扩展时，你可以进行一些更改，服务器不需要进行更多的配置
+客户端使用`Peer2PeerDiscovery`来设置该服务的网络和地址。
+
+由于只有有一个节点，因此选择器是不可用的。
+
+```go
+  d := client.NewPeer2PeerDiscovery("tcp@"+*addr, "")
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+    defer xclient.Close()
+```
+
+**注意:rpcx使用`network @ Host: port`格式表示一项服务。在`network` 可以 `tcp` ， `http` ，`unix` ，`quic`或`kcp`。该`Host`可以所主机名或IP地址。**
+
+`NewXClient`必须使用服务名称作为第一个参数，然后使用failmode，selector，discovery和其他选项。
 
 ### 服务器
 
@@ -93,7 +110,27 @@ func main() {
 
 ## MultipleServers {#multiple}
 
+**Example: ** [multiple](ttps://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/multiple))
+
 上面的方式只能访问一台服务器，假设我们有固定的几台服务器提供相同的服务，我们可以采用这种方式。
+
+如果你有多个服务但没有注册中心.你可以用编码的方式在客户端中配置服务的地址。
+服务器不需要进行更多的配置。
+
+客户端使用`MultipleServersDiscovery`并仅设置该服务的网络和地址。
+
+```go
+  d := client.NewMultipleServersDiscovery([]*client.KVPair{{Key: *addr1}, {Key: *addr2}})
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+    defer xclient.Close()
+```
+
+你必须在MultipleServersDiscovery 中设置服务信息和元数据。如果添加或删除了某些服务，你可以调用`MultipleServersDiscovery.Update`来动态更新服务。
+
+```go
+func (d *MultipleServersDiscovery) Update(pairs []*KVPair)
+```
+
 
 ### 服务器
 
