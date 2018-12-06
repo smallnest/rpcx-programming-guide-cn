@@ -13,5 +13,5 @@ type Breaker interface {
 }
 ```
 
-Rpcx 提供了一个简单的断路器 `ConsecCircuitBreaker`， 它在连续失败一定册书后就会断开，再经过一段时间后打开。
+Rpcx 提供了一个简单的断路器 `ConsecCircuitBreaker`， 它在连续失败一定次数后就会断开，再经过一段时间后打开。
 你可以将你的断路器设置到 `Option.Breaker`中。
