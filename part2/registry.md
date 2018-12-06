@@ -110,7 +110,7 @@ func main() {
 
 ## MultipleServers {#multiple}
 
-**Example:**  [multiple](ttps://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/multiple)
+**Example:**  [multiple](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/multiple)
 
 上面的方式只能访问一台服务器，假设我们有固定的几台服务器提供相同的服务，我们可以采用这种方式。
 
