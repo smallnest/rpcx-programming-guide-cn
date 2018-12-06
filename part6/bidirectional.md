@@ -1,21 +1,21 @@
-# Bidirectional commnunication
+# 双向通讯
 
-**Example:** [bidirectional](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/bidirectional)
+**示例:** [bidirectional](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/bidirectional)
 
-In normal case, clients send requests to services and services returns reponses to clients. It is the `request-response` rpc model.
+在正常情况下， 客户端发送请求，服务器返回结果，这样一问一答的方式就是`request-response` rpc 模型。
 
-But for some users, they want services can send commands or notifications to clients initiatively. It can be implemented by installing a service on the prior client and a client on the prior service but it is redundant and complicated.
+但是对于一些用户， 比如 `IoT` 的开发者， 可能需要在某些时候发送通知给客户端。 如果客户端和服务端都配两套代码就显得多余和臃肿了。
 
+rpcx实现了一个简单的通知机制。
 
-Rpcx implements a simple notification model.
+首先你需要缓存客户端的连接，可能还需要将用户的ID和连接进行关联， 以便服务器知道将通知发送给哪个客户端。
 
-You should cache the connection and business user ID in order that yu know you want to send notifications to which client.
 
 ## Server
 
-Server can use `SendMessage` to send messages to clients and data is `[]byte`. You should use `servicePath` and `serviceMethod` to indicate which notification the data is.
+服务器使用`SendMessage`方法发送通知， 数据是`[]byte`类型。 你可以设置 `servicePath` 和 `serviceMethod`以便提供给客户端更多的信息，用来区分不同的通知。
 
-You can get the `net.Conn` by `ctx.Value(server.RemoteConnContextKey)` in service.
+ `net.Conn` 对象可以在客户端调用服务的时候从`ctx.Value(server.RemoteConnContextKey)`中获取。
 
 ```go
 func (s *Server) SendMessage(conn net.Conn, servicePath, serviceMethod string, metadata map[string]string, data []byte) error
@@ -54,7 +54,7 @@ func main() {
 
 ## Client
 
-You must use `NewBidirectionalXClient` to create XClient by passing a channel. Then yuou can range the channel to get the message.
+你必须使用 `NewBidirectionalXClient` 创建 XClient 客户端， 你需要传如一个channel， 这样你就可以从channel中读取通知了。
 
 ```go client.go
 func main() {
