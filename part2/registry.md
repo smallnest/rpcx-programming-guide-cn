@@ -110,7 +110,7 @@ func main() {
 
 ## MultipleServers {#multiple}
 
-**Example: ** [multiple](ttps://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/multiple))
+**Example:**  [multiple](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/multiple)
 
 上面的方式只能访问一台服务器，假设我们有固定的几台服务器提供相同的服务，我们可以采用这种方式。
 
@@ -214,6 +214,8 @@ func main() {
 ```
 
 ## ZooKeeper {#zookeeper}
+
+**Example:** [zookeeper](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/zookeeper) 
 
 Apache ZooKeeper是Apache软件基金会的一个软件项目，他为大型分布式计算提供开源的分布式配置服务、同步服务和命名注册。 ZooKeeper曾经是Hadoop的一个子项目，但现在是一个独立的顶级项目。
 
@@ -339,6 +341,9 @@ func main() {
 
 ## Etcd {#etcd}
 
+Example:  [etcd](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/etcd)
+
+
 etcd 是 CoreOS 团队于 2013 年 6 月发起的开源项目，它的目标是构建一个高可用的分布式键值（key-value）数据库，基于 Go 语言实现。我们知道，在分布式系统中，各种服务的配置信息的管理分享，服务的发现是一个很基本同时也是很重要的问题。CoreOS 项目就希望基于 etcd 来解决这一问题。
 
 因为是用Go开发的，在Go的生态圈中得到广泛的应用。当然，因为etcd提供了RESTful的接口，其它语言也可以使用。
@@ -416,7 +421,7 @@ func addRegistryPlugin(s *server.Server) {
 客户端需要设置`EtcdDiscovery`插件，设置`basepath`和etcd集群的地址。
 
 
-```
+```go
 // go run -tags etcd client.go
 package main
 
@@ -460,6 +465,8 @@ func main() {
 
 
 ## Consul {#consul}
+
+Example: [consul](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/consul)
 
 Consul是HashiCorp公司推出的开源工具，用于实现分布式系统的服务发现与配置。Consul是分布式的、高可用的、 可横向扩展的。它具备以下特性:
 
@@ -582,6 +589,8 @@ func main() {
 
 ## mDNS {#mdns}
 
+Example: [mDNS](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/mdns)
+
 mdns 即多播dns（Multicast DNS），mDNS主要实现了在没有传统DNS服务器的情况下使局域网内的主机实现相互发现和通信，使用的端口为5353，遵从dns协议，使用现有的DNS信息结构、名语法和资源记录类型。并且没有指定新的操作代码或响应代码。
 
 在局域网中，设备和设备之前相互通信需要知道对方的ip地址的，大多数情况，设备的ip不是静态ip地址，而是通过dhcp 协议动态分配的ip 地址，如何设备发现呢，就是要mdns大显身手，例如：现在物联网设备和app之间的通信，要么app通过广播，要么通过组播，发一些特定信息，感兴趣设备应答，实现局域网设备的发现，当然服务也一样。
@@ -653,6 +662,8 @@ func main() {
 ```
 
 ## Inprocess {#inprocess}
+
+Example: [inprocess](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/registry/inprocess)
 
 这个Registry用于进程内的测试。 在开发过程中，可能不能直接连接线上的服务器直接测试，而是写一些mock程序作为服务，这个时候就可以使用这个registry, 测试通过在部署的时候再换成相应的其它registry.
 
