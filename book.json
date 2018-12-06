@@ -2,6 +2,9 @@
     "author": "@smallnest <smallnest@gmail.com>, @雪球的铲屎官, @来去从心",
     "description": "A guide about Go RPC development",
     "title": "Go RPC编程指南",
+    "styles": {
+        "website": "styles/website.css"
+    },
     "links": {
         "sharing": {
             "all": null,
