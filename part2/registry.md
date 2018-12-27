@@ -26,7 +26,7 @@ rpcx会自动将服务的信息比如服务名，监听地址，监听协议，�
 由于只有有一个节点，因此选择器是不可用的。
 
 ```go
-  d := client.NewPeer2PeerDiscovery("tcp@"+*addr, "")
+    d := client.NewPeer2PeerDiscovery("tcp@"+*addr, "")
 	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
     defer xclient.Close()
 ```
@@ -35,78 +35,6 @@ rpcx会自动将服务的信息比如服务名，监听地址，监听协议，�
 
 `NewXClient`必须使用服务名称作为第一个参数，然后使用failmode，selector，discovery和其他选项。
 
-### 服务器
-
-服务器并没有配置注册中心，而是直接启动。
-
-```go
-package main
-
-import (
-	"flag"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/server"
-)
-
-var (
-	addr = flag.String("addr", "localhost:8972", "server address")
-)
-
-func main() {
-	flag.Parse()
-
-	s := server.Server{}
-	s.RegisterName("Arith", new(example.Arith), "")
-	s.Serve("tcp", *addr)
-}
-```
-
-
-### 客户端
-
-客户端直接配置了服务器的地址，格式是`network@ipaddress:port`的格式，并没有通过第三方组件来查找。
-
-```go
-package main
-
-import (
-	"context"
-	"flag"
-	"log"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/client"
-)
-
-var (
-	addr = flag.String("addr", "localhost:8972", "server address")
-)
-
-func main() {
-	flag.Parse()
-
-	d := client.NewPeer2PeerDiscovery("tcp@"+*addr, "")
-	xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
-	defer xclient.Close()
-
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
-
-	reply := &example.Reply{}
-	err := xclient.Call(context.Background(), args, reply)
-	if err != nil {
-		log.Fatalf("failed to call: %v", err)
-	}
-
-	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-
-}
-```
-
-当然，如果服务器宕机，客户端访问就会报错。
 
 ## MultipleServers {#multiple}
 
@@ -120,7 +48,7 @@ func main() {
 客户端使用`MultipleServersDiscovery`并仅设置该服务的网络和地址。
 
 ```go
-  d := client.NewMultipleServersDiscovery([]*client.KVPair{{Key: *addr1}, {Key: *addr2}})
+    d := client.NewMultipleServersDiscovery([]*client.KVPair{{Key: *addr1}, {Key: *addr2}})
 	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
     defer xclient.Close()
 ```
@@ -131,87 +59,6 @@ func main() {
 func (d *MultipleServersDiscovery) Update(pairs []*KVPair)
 ```
 
-
-### 服务器
-
-服务器还是和上面的代码一样，只需启动自己的服务，不需要做额外的配置。下面这个例子启动了两个服务。
-
-```go
-package main
-
-import (
-	"flag"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/server"
-)
-
-var (
-	addr1 = flag.String("addr1", "localhost:8972", "server1 address")
-	addr2 = flag.String("addr2", "localhost:9981", "server2 address")
-)
-
-func main() {
-	flag.Parse()
-
-	go createServer(*addr1)
-	go createServer(*addr2)
-
-	select {}
-}
-
-func createServer(addr string) {
-	s := server.NewServer(nil)
-	s.RegisterName("Arith", new(example.Arith), "")
-	s.Serve("tcp", addr)
-}
-```
-
-### 客户端
-
-客户度需要使用`MultipleServersDiscovery`来配置同一个服务的多个服务器地址，这样客户端就能基于规则从中选择一个进行调用。
-
-可以看到，除了初始化`XClient`有所不同外，实际调用服务是一样的， 后面介绍的注册中心也是一样，只有初始化客户端有所不同，后续的调用都一样。
-
-```go
-package main
-
-import (
-	"context"
-	"flag"
-	"log"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/client"
-)
-
-var (
-	addr1 = flag.String("addr1", "tcp@localhost:8972", "server1 address")
-	addr2 = flag.String("addr2", "tcp@localhost:9981", "server2 address")
-)
-
-func main() {
-	flag.Parse()
-
-	d := client.NewMultipleServersDiscovery([]*client.KVPair{{Key: *addr1}, {Key: *addr2}})
-	xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
-	defer xclient.Close()
-
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
-
-	reply := &example.Reply{}
-	err := xclient.Call(context.Background(), args, reply)
-	if err != nil {
-		log.Fatalf("failed to call: %v", err)
-	}
-
-	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-
-}
-```
 
 ## ZooKeeper {#zookeeper}
 
@@ -247,29 +94,10 @@ Zookeeper一个应用场景就是服务发现，这在Java生态圈中得到了�
 
 ```go
 // go run -tags zookeeper server.go
-package main
-
-import (
-	"flag"
-	"log"
-	"time"
-
-	metrics "github.com/rcrowley/go-metrics"
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/server"
-	"github.com/smallnest/rpcx/serverplugin"
-)
-
-var (
-	addr     = flag.String("addr", "localhost:8972", "server address")
-	zkAddr   = flag.String("zkAddr", "localhost:2181", "zookeeper address")
-	basePath = flag.String("base", "/rpcx_test", "prefix path")
-)
-
 func main() {
 	flag.Parse()
 
-	s := server.NewServer(nil)
+	s := server.NewServer()
 	addRegistryPlugin(s)
 
 	s.RegisterName("Arith", new(example.Arith), "")
@@ -299,43 +127,9 @@ func addRegistryPlugin(s *server.Server) {
 客户端需要设置 `ZookeeperDiscovery`, 指定`basePath`和zookeeper集群的地址。
 ```go
 // go run -tags zookeeper client.go
-package main
-
-import (
-	"context"
-	"flag"
-	"log"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/client"
-)
-
-var (
-	zkAddr   = flag.String("zkAddr", "localhost:2181", "zookeeper address")
-	basePath = flag.String("base", "/rpcx_test/Arith", "prefix path")
-)
-
-func main() {
-	flag.Parse()
-
-	d := client.NewZookeeperDiscovery(*basePath, []string{*zkAddr}, nil)
-	xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
-	defer xclient.Close()
-
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
-
-	reply := &example.Reply{}
-	err := xclient.Call(context.Background(), args, reply)
-	if err != nil {
-		log.Fatalf("failed to call: %v", err)
-	}
-
-	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-
-}
+    d := client.NewZookeeperDiscovery(*basePath, "Arith",[]string{*zkAddr}, nil)
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+    defer xclient.Close()
 ```
 
 
@@ -369,29 +163,10 @@ etcd registry使用和zookeeper非常相像。
 
 ```go
 // go run -tags etcd server.go
-package main
-
-import (
-	"flag"
-	"log"
-	"time"
-
-	metrics "github.com/rcrowley/go-metrics"
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/server"
-	"github.com/smallnest/rpcx/serverplugin"
-)
-
-var (
-	addr     = flag.String("addr", "localhost:8972", "server address")
-	etcdAddr = flag.String("etcdAddr", "localhost:2379", "etcd address")
-	basePath = flag.String("base", "/rpcx_test", "prefix path")
-)
-
 func main() {
 	flag.Parse()
 
-	s := server.NewServer(nil)
+	s := server.NewServer()
 	addRegistryPlugin(s)
 
 	s.RegisterName("Arith", new(example.Arith), "")
@@ -423,43 +198,9 @@ func addRegistryPlugin(s *server.Server) {
 
 ```go
 // go run -tags etcd client.go
-package main
-
-import (
-	"context"
-	"flag"
-	"log"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/client"
-)
-
-var (
-	etcdAddr = flag.String("etcdAddr", "localhost:2379", "etcd address")
-	basePath = flag.String("base", "/rpcx_test/Arith", "prefix path")
-)
-
-func main() {
-	flag.Parse()
-
-	d := client.NewEtcdDiscovery(*basePath, []string{*etcdAddr}, nil)
-	xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
-	defer xclient.Close()
-
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
-
-	reply := &example.Reply{}
-	err := xclient.Call(context.Background(), args, reply)
-	if err != nil {
-		log.Fatalf("failed to call: %v", err)
-	}
-
-	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-
-}
+    d := client.NewEtcdDiscovery(*basePath, "Arith",[]string{*etcdAddr}, nil)
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+    defer xclient.Close()
 
 ```
 
@@ -496,29 +237,10 @@ Consul也是使用Go开发的，在Go生态圈也被广泛应用。
 
 ```go
 // go run -tags consul server.go
-package main
-
-import (
-	"flag"
-	"log"
-	"time"
-
-	metrics "github.com/rcrowley/go-metrics"
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/server"
-	"github.com/smallnest/rpcx/serverplugin"
-)
-
-var (
-	addr       = flag.String("addr", "localhost:8972", "server address")
-	consulAddr = flag.String("consulAddr", "localhost:8500", "consul address")
-	basePath   = flag.String("base", "/rpcx_test", "prefix path")
-)
-
 func main() {
 	flag.Parse()
 
-	s := server.NewServer(nil)
+	s := server.NewServer()
 	addRegistryPlugin(s)
 
 	s.RegisterName("Arith", new(example.Arith), "")
@@ -548,43 +270,9 @@ func addRegistryPlugin(s *server.Server) {
 配置`ConsulDiscovery`，使用`basepath`和consul的地址。
 
 ```go
-package main
-
-import (
-	"context"
-	"flag"
-	"log"
-
-	example "github.com/rpcx-ecosystem/rpcx-examples3"
-	"github.com/smallnest/rpcx/client"
-)
-
-var (
-	consulAddr = flag.String("consulAddr", "localhost:8500", "consul address")
-	basePath   = flag.String("base", "/rpcx_test/Arith", "prefix path")
-)
-
-func main() {
-	flag.Parse()
-
-	d := client.NewConsulDiscovery(*basePath, []string{*consulAddr}, nil)
-	xclient := client.NewXClient("Arith", "Mul", client.Failtry, client.RandomSelect, d, client.DefaultOption)
-	defer xclient.Close()
-
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
-
-	reply := &example.Reply{}
-	err := xclient.Call(context.Background(), args, reply)
-	if err != nil {
-		log.Fatalf("failed to call: %v", err)
-	}
-
-	log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-
-}
+    d := client.NewConsulDiscovery(*basePath, "Arith",[]string{*consulAddr}, nil)
+	xclient := client.NewXClient("Arith", client.Failtry, client.RandomSelect, d, client.DefaultOption)
+    defer xclient.Close()
 ```
 
 ## mDNS {#mdns}
