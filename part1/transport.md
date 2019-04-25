@@ -55,6 +55,8 @@ HTTP Connect并不被推荐。 TCP是第一选择。
 
 网络名称是 `kcp`。
 
+当你使用`kcp`的时候，你必须设置`Timeout`，利用timeout保持连接的检测。因为kcp-go本身不提供keepalive/heartbeat的功能，当服务器宕机重启的时候，原有的连接没有任何异常，只会hang住，我们只能依靠`Timeout`避免hang住。
+
 **Example:** [kcp](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/kcp)
 
 
