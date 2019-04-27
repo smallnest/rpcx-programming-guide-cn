@@ -8,7 +8,7 @@ rpcx会自动处理心跳(事实上它直接就丢弃了心跳)。
 客户端需要启用心跳选项，并且设置心跳间隔：
 
 ```go
- 	option := client.DefaultOption
-	option.Heartbeat = true
-	option.HeartbeatInterval = time.Second
+option := client.DefaultOption
+option.Heartbeat = true
+option.HeartbeatInterval = time.Second
 ```
