@@ -230,7 +230,7 @@ Consul也是使用Go开发的，在Go生态圈也被广泛应用。
 
 * ServiceAddress: 本机的监听地址， 这个对外暴露的监听地址， 格式为`tcp@ipaddress:port`
 * ConsulServers: consul集群的地址
-* BasePath: 服务前缀。 如果有多个项目同时使用zookeeper，避免命名冲突，可以设置这个参数，为当前的服务设置命名空间
+* BasePath: 服务前缀。 如果有多个项目同时使用consul，避免命名冲突，可以设置这个参数，为当前的服务设置命名空间
 * Metrics: 用来更新服务的TPS
 * UpdateInterval: 服务的刷新间隔， 如果在一定间隔内(当前设为2 * UpdateInterval)没有刷新,服务就会从consul中删除
 
