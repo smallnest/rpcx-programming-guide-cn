@@ -8,7 +8,7 @@
 
 你可以使用`OptionFn`设置服务器的 `readTimeout` 和 `writeTimeout`。
 
-```go server struct
+```go
 type Server struct {
 	……
 	readTimeout  time.Duration

@@ -22,7 +22,8 @@ func (s *Server) SendMessage(conn net.Conn, servicePath, serviceMethod string, m
 ```
 
 
-```go server.go
+```go
+// server.go
 func main() {
 	flag.Parse()
 
@@ -56,7 +57,8 @@ func main() {
 
 你必须使用 `NewBidirectionalXClient` 创建 XClient 客户端， 你需要传如一个channel， 这样你就可以从channel中读取通知了。
 
-```go client.go
+```go
+// client.go
 func main() {
 	flag.Parse()
 

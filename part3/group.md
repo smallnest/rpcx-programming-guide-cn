@@ -10,7 +10,8 @@
 `group` 就是一个元数据。如果你为服务设置了设置`group`， 只有在这个`group`的客户端才能访问这些服务(这个限制是在路由的时候限制的， 当然你在客户端绕过这个限制)。
 
 
-```go server.go
+```go
+// server.go
 
 func main() {
 	flag.Parse()
@@ -38,25 +39,26 @@ func createServer2(addr, meta string) {
 
 如果在客户端你没有设置 `option.Group`, 客户端可以访问这些服务， 无论服务是否设置了组还是没设置。
 
-```go client.go
-	option := client.DefaultOption
-	option.Group = "test"
-	xclient := client.NewXClient("Arith", client.Failover, client.RoundRobin, d, option)
-	defer xclient.Close()
+```go
+// client.go
+option := client.DefaultOption
+option.Group = "test"
+xclient := client.NewXClient("Arith", client.Failover, client.RoundRobin, d, option)
+defer xclient.Close()
 
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
+args := &example.Args{
+    A: 10,
+    B: 20,
+}
 
-	for {
-		reply := &example.Reply{}
-		err := xclient.Call(context.Background(), "Mul", args, reply)
-		if err != nil {
-			log.Fatalf("failed to call: %v", err)
-		}
+for {
+    reply := &example.Reply{}
+    err := xclient.Call(context.Background(), "Mul", args, reply)
+    if err != nil {
+        log.Fatalf("failed to call: %v", err)
+    }
 
-		log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-		time.Sleep(1e9)
-	}
+    log.Printf("%d * %d = %d", args.A, args.B, reply.C)
+    time.Sleep(1e9)
+}
 ```

@@ -8,8 +8,8 @@
 
 你可以通过 [rpcx-ui](https://github.com/smallnest/rpcx-ui))来时实现禁用和启用的功能。
 
-```go server.go
-
+```go
+// server.go
 func main() {
 	flag.Parse()
 
@@ -33,23 +33,24 @@ func createServer2(addr, meta string) {
 ```
 
 
-```go client.go
-	xclient := client.NewXClient("Arith", client.Failover, client.RoundRobin, d, client.DefaultOption)
-	defer xclient.Close()
+```go
+// client.go
+xclient := client.NewXClient("Arith", client.Failover, client.RoundRobin, d, client.DefaultOption)
+defer xclient.Close()
 
-	args := &example.Args{
-		A: 10,
-		B: 20,
-	}
+args := &example.Args{
+    A: 10,
+    B: 20,
+}
 
-	for {
-		reply := &example.Reply{}
-		err := xclient.Call(context.Background(), "Mul", args, reply)
-		if err != nil {
-			log.Fatalf("failed to call: %v", err)
-		}
+for {
+    reply := &example.Reply{}
+    err := xclient.Call(context.Background(), "Mul", args, reply)
+    if err != nil {
+        log.Fatalf("failed to call: %v", err)
+    }
 
-		log.Printf("%d * %d = %d", args.A, args.B, reply.C)
-		time.Sleep(1e9)
-	}
+    log.Printf("%d * %d = %d", args.A, args.B, reply.C)
+    time.Sleep(1e9)
+}
 ```

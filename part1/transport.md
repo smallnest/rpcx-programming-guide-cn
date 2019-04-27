@@ -9,7 +9,7 @@ rpcx 可以通过 TCP、HTTP、UnixDomain、QUIC和KCP通信。你也可以使�
 **Example:** [101basic](https://github.com/rpcx-ecosystem/rpcx-examples3/tree/master/101basic)
 
 服务端使用 `tcp` 做为网络名并且在注册中心注册了名为 `serviceName/tcp@ipaddress:port` 的服务。
-```go server.go
+```go
 s.Serve("tcp", *addr)
 ```
 
