@@ -54,7 +54,7 @@ Client发送 http 请求到本地的agent, 本地的agent将请求转为 rpcx请
 - X-RPCX-ServicePath: service path
 - X-RPCX-ServiceMethod: service method
 - X-RPCX-Meta: extra metadata
-- X-RPCX-ErrorMessage: 错误信息,  如果 X-RPCX-MessageStatusType 是 Error的花
+- X-RPCX-ErrorMessage: 错误信息,  如果 X-RPCX-MessageStatusType 是 Error 的话
 
 
 ## 例子
