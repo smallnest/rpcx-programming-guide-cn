@@ -34,7 +34,7 @@
 * [广播模式](part3/broadcast.md)
 * [路由](part3/selector.md)
   * [随机选择](part3/selector.md#random_selector)
-  * [轮训](part3/selector.md#roundrobin_selector)
+  * [轮询](part3/selector.md#roundrobin_selector)
   * [一致性哈希](part3/selector.md#hash_selector)
   * [权重](part3/selector.md#weighted_selector)
   * [网络质量优先](part3/selector.md#ping_selector)
