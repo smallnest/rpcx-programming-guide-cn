@@ -14,7 +14,7 @@
             "weibo": null
         },
         "sidebar": {
-            "rpcx官方站点": "http://rpcx.site/"
+            "rpcx官方站点": "https://rpcx.io/"
         }
     },
     "pdf": {
@@ -36,7 +36,8 @@
         "-toc-ng",
         "page-footer-ex",
         "timeline",
-        "katex"
+        "katex",
+	"-lunr"
     ],
     "pluginsConfig": {
         "theme-default": {
