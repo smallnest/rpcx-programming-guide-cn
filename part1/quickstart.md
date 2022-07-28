@@ -157,4 +157,4 @@ SelectMode 告诉客户端如何在有多台服务器提供了同一服务的情
 	}
 ```
 
-你必须使用 `xclient.Go` 来替换 `xclient.Call`， 然后把结果返回到一个channel里。你可以从chnanel里监听调用结果。
+你必须使用 `xclient.Go` 来替换 `xclient.Call`， 然后把结果返回到一个channel里。你可以从channel里监听调用结果。
