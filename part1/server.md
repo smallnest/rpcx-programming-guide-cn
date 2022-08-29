@@ -109,7 +109,7 @@ rpcx 支持如下的网络类型：
 - unix: unix domain sockets
 - reuseport: 要求 `SO_REUSEPORT` socket 选项, 仅支持 Linux kernel 3.9+
 - quic: support [quic protocol](https://en.wikipedia.org/wiki/QUIC)
-- kcp: sopport [kcp protocol](https://github.com/skywind3000/kcp)
+- kcp: support [kcp protocol](https://github.com/skywind3000/kcp)
 
 
 下面是一个服务器的示例代码：
